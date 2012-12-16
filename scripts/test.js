@@ -17,15 +17,18 @@ var fUtils = {
             add_pl_title: '#add_pl_t',
             add_pl_descr: '#add_pl_d',
             add_chk_b: '#add_track',
-            add_tr: '#add_track_b',
+            add_tr_value: '#add_track_f',
             add_tr_f: '#add_track_cont',
             playlist: '#playlist_one',
+            tracks_list: '#tracks',
+            pl_empty: '#pl_empty',
             all_lists: '#list',
             pl_big_title: '#plylist_title',
             pl_title: '#pl_title',
             pl_description: '#pl_description'
         },
-        playLists: {}
+        playLists: {},
+        widgets:[]
     },
     getPlayLists: function () {
         var _playlistsV = localStorage.getItem('sc_playlists') || '';
@@ -42,12 +45,11 @@ var fUtils = {
 
         for (var p in fUtils.settings.playLists) {
             if (fUtils.settings.playLists.hasOwnProperty(p)) {
-                _pl_HTML += '<li><dl class="clearfix"><dt>' + fUtils.settings.playLists[p].title + '</dt><dd>?</dd></dl></li>';
+                _pl_HTML += '<li><dl class="clearfix"><dt>' + fUtils.settings.playLists[p].title + '</dt><dd>˟</dd></dl></li>';
             }
         }
         _pl_HTML += '</ul>';
         _all_lists.html(_pl_HTML);
-
 
         if (typeof _new != 'undefined' && _new === 'new') {
             $('li:last', _all_lists).addClass('selected');
@@ -58,7 +60,7 @@ var fUtils = {
             var plTitle = $('dt', this);
             _pl.addClass('hidden');
             add_chk_b.attr('checked', 'checked');
-            plTitle.addClass('selected').siblings().removeClass('selected');
+            $(this).addClass('selected').siblings().removeClass('selected');
             fUtils.addTracks(plTitle.text());
         });
 
@@ -69,17 +71,16 @@ var fUtils = {
             var plTitle = $(this).prev().text();
             fUtils.deleteList(plTitle);
         });
-
+        //console.log(fUtils.settings.playLists);
     },
-    setPlaylists: function () {
+    setPlaylists: function (_new) {
         var json_data = JSON.stringify(fUtils.settings.playLists);
         if (Modernizr.localstorage) {
             localStorage.setItem('sc_playlists', json_data);
         } else {
             alert("No local Storage - don't wanna work");
         }
-        console.log()
-        fUtils.refreshList('new');
+        fUtils.refreshList(_new);
     },
     addPlayList: function () {
         var _pl = $(fUtils.settings.selectors.add_pl);
@@ -97,9 +98,9 @@ var fUtils = {
             var trackT = add_pl_title.val();
             var trackD = add_pl_descr.val();
 
-            fUtils.settings.playLists[trackT] = {title: trackT, description: trackD, tracks: ''};
+            fUtils.settings.playLists[trackT] = {title: trackT, description: trackD, tracks: []};
 
-            fUtils.setPlaylists();
+            fUtils.setPlaylists('new');
 
             $(this).addClass('hidden');
             add_chk_b.attr('checked', 'checked');
@@ -116,32 +117,85 @@ var fUtils = {
         var pl_title = $(fUtils.settings.selectors.pl_title);
         var pl_description = $(fUtils.settings.selectors.pl_description);
 
+        var tracks_list = $(fUtils.settings.selectors.tracks_list);
+        var pl_empty = $(fUtils.settings.selectors.pl_empty);
+
+        var add_tr_f = $(fUtils.settings.selectors.add_tr_f);
+
         pl_title.html(_playlist);
         pl_description.html(fUtils.settings.playLists[_playlist].description);
         pl_big_title.text(_playlist);
         _plEdit.show(300);
-    },
-    addNewTrack: function(url){
 
+        fUtils.refreshTracks(_playlist);
+
+        add_tr_f.unbind('submit').submit(function (e) {
+            e.preventDefault();
+            var t_field = $(fUtils.settings.selectors.add_tr_value, add_tr_f);
+            var t_field_val = t_field.val();
+            if(t_field_val.indexOf('soundcloud.com')<0){
+                alert('Not a SoundCloud URL');
+                return;
+            }
+            fUtils.settings.playLists[_playlist].tracks.push(t_field_val);
+            fUtils.pushTrack(t_field_val, fUtils.settings.playLists[_playlist].tracks.length);
+            t_field.val('');
+            fUtils.setPlaylists();
+        });
+    },
+    refreshTracks:function(_playlist){
+        var pl_empty = $(fUtils.settings.selectors.pl_empty);
+        var tracks_list = $(fUtils.settings.selectors.tracks_list);
+
+        if(fUtils.settings.playLists[_playlist].tracks.length>0){
+            tracks_list.html('').append(pl_empty);
+            pl_empty.hide();
+            for (var t in fUtils.settings.playLists[_playlist].tracks) {
+                if (fUtils.settings.playLists[_playlist].tracks.hasOwnProperty(t)) {
+                    //delete window['track'+t];
+                    fUtils.pushTrack(fUtils.settings.playLists[_playlist].tracks[t], t);
+                }
+            }
+        }
+    },
+    pushTrack:function(_track, _id){
+
+        var $track = $(_track);
+        var tracks_list = $(fUtils.settings.selectors.tracks_list);
+
+        var trackId = 'track'+_id;
+
+        if(typeof window[trackId] != 'undefined'){
+            /*window[trackId].unbind(SC.Widget.Events.FINISH);
+            delete window[trackId];*/
+        }
+
+        $track.attr('id', trackId);
+        var track = document.createElement('li');
+
+        $(track).append($track);
+        tracks_list.prepend(track);
+        $track.load(function(){
+            window[trackId] = SC.Widget(trackId);
+            window[trackId].bind(SC.Widget.Events.FINISH, fUtils.playNext(_id));
+
+        });
+    },
+    playNext:function(_id){
+        console.log('finnished');
     },
     deleteList: function (list) {
         delete fUtils.settings.playLists[list];
         fUtils.setPlaylists();
     },
     init: function () {
-        var add_tr_f = $(fUtils.settings.selectors.add_tr_f);
-        var add_tr = $(fUtils.settings.selectors.add_tr);
         var add_pl_b = $(fUtils.settings.selectors.add_pl_b);
 
         fUtils.getPlayLists();
 
 
-        add_tr_f.submit(function (e) {
-            e.preventDefault();
-        });
-        add_tr.click(function (e) {
-            e.preventDefault();
-        });
+
+        //Adding new playlist
         add_pl_b.click(function () {
             fUtils.addPlayList();
         });

@@ -4,7 +4,7 @@
     <title>SoundCloud test</title>
     <script src="modernizr.min.js"></script>
     <script src="https://raw.github.com/douglascrockford/JSON-js/master/json2.js"></script>
-    <script src="http://connect.soundcloud.com/sdk.js"></script>
+    <script src="http://w.soundcloud.com/player/api.js"></script>
     <script type="text/javascript" src="scripts/test.js"></script>
     <link rel="stylesheet" href="styles/style.css">
     <meta charset="utf-8">
@@ -42,7 +42,7 @@
                 </label>
                     <form id="add_track_cont">
                         <fieldset class="clearfix">
-                            <label for="add_track_f"  class="label">Url</label>
+                            <label for="add_track_f"  class="label">Widget Code</label>
                             <input type="text" id="add_track_f"  class="txt"/>
                             <input type="submit" id="add_track_b" class="add_b" value="+"/>
                         </fieldset>
@@ -52,8 +52,8 @@
             <section id="playlist_tracks">
                 <h2 id="pl_title"></h2>
                 <article id="pl_description"></article>
-                <ul>
-                    <li>No tracks</li>
+                <ul id="tracks">
+                    <li id="pl_empty">No tracks</li>
                 </ul>
             </section>
         </section>
