@@ -10,136 +10,141 @@ $(document).ready(function () {
     fUtils.init();
 });
 var fUtils = {
-        settings: {
-            selectors: {
-                add_pl_b: '#create_pl',
-                add_pl: '#add_pl',
-                add_pl_title: '#add_pl_t',
-                add_pl_descr: '#add_pl_d',
-                add_chk_b: '#add_track',
-                add_tr: '#add_track_b',
-                add_tr_f: '#add_track_cont',
-                playlist: '#playlist_one',
-                all_lists: '#list',
-                pl_big_title: '#plylist_title',
-                pl_title: '#pl_title',
-                pl_description: '#pl_description'
-            },
-            playLists: {}
+    settings: {
+        selectors: {
+            add_pl_b: '#create_pl',
+            add_pl: '#add_pl',
+            add_pl_title: '#add_pl_t',
+            add_pl_descr: '#add_pl_d',
+            add_chk_b: '#add_track',
+            add_tr: '#add_track_b',
+            add_tr_f: '#add_track_cont',
+            playlist: '#playlist_one',
+            all_lists: '#list',
+            pl_big_title: '#plylist_title',
+            pl_title: '#pl_title',
+            pl_description: '#pl_description'
         },
-        getPlayLists: function(){
-            var _playlistsV = localStorage.getItem('sc_playlists')||'';
-            fUtils.settings.playLists = (_playlistsV!=='')?$.parseJSON(_playlistsV):fUtils.settings.playLists;
-            fUtils.refreshList();
-        },
-        refreshList:function(_new){
-            var _all_lists = $(fUtils.settings.selectors.all_lists);
-            var _pl = $(fUtils.settings.selectors.add_pl);
-            var add_chk_b = $(fUtils.settings.selectors.add_chk_b);
-            var playlist = $(fUtils.settings.selectors.playlist);
+        playLists: {}
+    },
+    getPlayLists: function () {
+        var _playlistsV = localStorage.getItem('sc_playlists') || '';
+        fUtils.settings.playLists = (_playlistsV !== '') ? $.parseJSON(_playlistsV) : fUtils.settings.playLists;
+        fUtils.refreshList();
+    },
+    refreshList: function (_new) {
+        var _all_lists = $(fUtils.settings.selectors.all_lists);
+        var _pl = $(fUtils.settings.selectors.add_pl);
+        var add_chk_b = $(fUtils.settings.selectors.add_chk_b);
+        var playlist = $(fUtils.settings.selectors.playlist);
 
-            var _pl_HTML = '<ul id="pl_list">';
+        var _pl_HTML = '<ul id="pl_list">';
 
-            for (var p in fUtils.settings.playLists) {
-                if (fUtils.settings.playLists.hasOwnProperty(p)) {
-                    _pl_HTML += '<li><dl class="clearfix"><dt>' + fUtils.settings.playLists[p].title + '</dt><dd>˟</dd></dl></li>';
-                }
+        for (var p in fUtils.settings.playLists) {
+            if (fUtils.settings.playLists.hasOwnProperty(p)) {
+                _pl_HTML += '<li><dl class="clearfix"><dt>' + fUtils.settings.playLists[p].title + '</dt><dd>?</dd></dl></li>';
             }
-            _pl_HTML += '</ul>';
-            _all_lists.html(_pl_HTML);
-
-
-            if(typeof _new!= 'undefined' && _new==='new'){
-                $('li:last', _all_lists).addClass('selected');
-            }
-
-            $('li', _all_lists).on('click', function (e) {
-                playlist.show(300);
-                var plTitle = $('dt',this);
-                _pl.addClass('hidden');
-                add_chk_b.attr('checked','checked');
-                plTitle.addClass('selected').siblings().removeClass('selected');
-                fUtils.addTracks(plTitle.text());
-            });
-
-            $('dd', _all_lists).on('click', function (e) {
-               if($(this).closest('li').hasClass('selected')) {playlist.hide(300);}
-               var plTitle = $(this).prev().text();
-               fUtils.deleteList(plTitle);
-           });
-
-        },
-        setPlaylists:function(){
-            var json_data = JSON.stringify( fUtils.settings.playLists);
-            if (Modernizr.localstorage) {
-                localStorage.setItem('sc_playlists', json_data);
-            } else {
-                alert("No local Storage - don't wanna work");
-            }
-            console.log()
-            fUtils.refreshList('new');
-        },
-        addPlayList: function () {
-            var _pl = $(fUtils.settings.selectors.add_pl);
-            var add_chk_b = $(fUtils.settings.selectors.add_chk_b);
-            var add_pl_title = $(fUtils.settings.selectors.add_pl_title, _pl);
-            var add_pl_descr = $(fUtils.settings.selectors.add_pl_descr, _pl);
-
-            add_pl_title.val('');
-            add_pl_descr.val('');
-
-            add_chk_b.removeAttr('checked');
-            _pl.removeClass('hidden');
-            _pl.submit(function(e){
-                e.preventDefault();
-                var trackT = add_pl_title.val();
-                var trackD = add_pl_descr.val();
-
-                fUtils.settings.playLists[trackT] = {title:trackT, description:trackD,tracks:''};
-
-                fUtils.setPlaylists();
-
-                $(this).addClass('hidden');
-                add_chk_b.attr('checked','checked');
-
-                fUtils.addTracks(trackT);
-
-            });
-        },
-        addTracks:function(_playlist){
-            var _plEdit = $(fUtils.settings.selectors.playlist);
-            var _pl = fUtils.settings.playLists[_playlist];
-            var pl_big_title = $(fUtils.settings.selectors.pl_big_title);
-
-            var pl_title=$(fUtils.settings.selectors.pl_title);
-            var pl_description=$(fUtils.settings.selectors.pl_description);
-
-            pl_title.html(_playlist);
-            pl_description.html(fUtils.settings.playLists[_playlist].description);
-            pl_big_title.text(_playlist);
-            _plEdit.show(300);
-        },
-        deleteList: function(list){
-            delete fUtils.settings.playLists[list];
-            fUtils.setPlaylists();
-        },
-        init: function () {
-            var add_tr_f = $(fUtils.settings.selectors.add_tr_f);
-            var add_tr = $(fUtils.settings.selectors.add_tr);
-            var add_pl_b = $(fUtils.settings.selectors.add_pl_b);
-
-            fUtils.getPlayLists();
-
-
-            add_tr_f.submit(function (e) {
-                e.preventDefault();
-            });
-            add_tr.click(function (e) {
-                e.preventDefault();
-            });
-            add_pl_b.click(function () {
-                fUtils.addPlayList();
-            });
-
         }
-    };
+        _pl_HTML += '</ul>';
+        _all_lists.html(_pl_HTML);
+
+
+        if (typeof _new != 'undefined' && _new === 'new') {
+            $('li:last', _all_lists).addClass('selected');
+        }
+
+        $('li', _all_lists).on('click', function (e) {
+            playlist.show(300);
+            var plTitle = $('dt', this);
+            _pl.addClass('hidden');
+            add_chk_b.attr('checked', 'checked');
+            plTitle.addClass('selected').siblings().removeClass('selected');
+            fUtils.addTracks(plTitle.text());
+        });
+
+        $('dd', _all_lists).on('click', function (e) {
+            if ($(this).closest('li').hasClass('selected')) {
+                playlist.hide(300);
+            }
+            var plTitle = $(this).prev().text();
+            fUtils.deleteList(plTitle);
+        });
+
+    },
+    setPlaylists: function () {
+        var json_data = JSON.stringify(fUtils.settings.playLists);
+        if (Modernizr.localstorage) {
+            localStorage.setItem('sc_playlists', json_data);
+        } else {
+            alert("No local Storage - don't wanna work");
+        }
+        console.log()
+        fUtils.refreshList('new');
+    },
+    addPlayList: function () {
+        var _pl = $(fUtils.settings.selectors.add_pl);
+        var add_chk_b = $(fUtils.settings.selectors.add_chk_b);
+        var add_pl_title = $(fUtils.settings.selectors.add_pl_title, _pl);
+        var add_pl_descr = $(fUtils.settings.selectors.add_pl_descr, _pl);
+
+        add_pl_title.val('');
+        add_pl_descr.val('');
+
+        add_chk_b.removeAttr('checked');
+        _pl.removeClass('hidden');
+        _pl.submit(function (e) {
+            e.preventDefault();
+            var trackT = add_pl_title.val();
+            var trackD = add_pl_descr.val();
+
+            fUtils.settings.playLists[trackT] = {title: trackT, description: trackD, tracks: ''};
+
+            fUtils.setPlaylists();
+
+            $(this).addClass('hidden');
+            add_chk_b.attr('checked', 'checked');
+
+            fUtils.addTracks(trackT);
+
+        });
+    },
+    addTracks: function (_playlist) {
+        var _plEdit = $(fUtils.settings.selectors.playlist);
+        var _pl = fUtils.settings.playLists[_playlist];
+        var pl_big_title = $(fUtils.settings.selectors.pl_big_title);
+
+        var pl_title = $(fUtils.settings.selectors.pl_title);
+        var pl_description = $(fUtils.settings.selectors.pl_description);
+
+        pl_title.html(_playlist);
+        pl_description.html(fUtils.settings.playLists[_playlist].description);
+        pl_big_title.text(_playlist);
+        _plEdit.show(300);
+    },
+    addNewTrack: function(url){
+
+    },
+    deleteList: function (list) {
+        delete fUtils.settings.playLists[list];
+        fUtils.setPlaylists();
+    },
+    init: function () {
+        var add_tr_f = $(fUtils.settings.selectors.add_tr_f);
+        var add_tr = $(fUtils.settings.selectors.add_tr);
+        var add_pl_b = $(fUtils.settings.selectors.add_pl_b);
+
+        fUtils.getPlayLists();
+
+
+        add_tr_f.submit(function (e) {
+            e.preventDefault();
+        });
+        add_tr.click(function (e) {
+            e.preventDefault();
+        });
+        add_pl_b.click(function () {
+            fUtils.addPlayList();
+        });
+
+    }
+};
