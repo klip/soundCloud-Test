@@ -203,6 +203,7 @@ body {
 #playlist_one {
     margin: 36px 0;
     display: none;
+    width: 100%!important;
 }
 
 #add_to_playlist {
