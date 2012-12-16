@@ -100,7 +100,6 @@ body {
 
 #playlist_all {
     width: 300px;
-    max-width: 400px;
     float: left;
     background: #f4f4f4;
     padding: 12px 0;
@@ -108,15 +107,14 @@ body {
 }
 
 #playground {
-    margin-left: 32%;
-    padding: 12px;
+    margin-left: 336px;
+    padding: 12px 36px 12px 0;
 }
 
 #playground h1 {
     font-size: 22px;
     font-weight: bold;
     color: #305869;
-    text-align: center;
 }
 
 #playlist_all {
@@ -144,6 +142,9 @@ body {
 
 #create_pl:hover {
     color: #305869;
+    -webkit-transition: color 0.3s ease-in-out;
+    -moz-transition: color 0.3s ease-in-out;
+    -o-transition: color 0.3s ease-in-out;
     transition: color 0.3s ease-in-out;
 }
 
@@ -176,11 +177,17 @@ body {
     height: 175px;
     overflow: hidden;
     margin: 0 12px;
+    -webkit-transition: height 0.3s ease-in-out;
+    -moz-transition: height 0.3s ease-in-out;
+    -o-transition: height 0.3s ease-in-out;
     transition: height 0.3s ease-in-out;
 }
 
 #playlist_all #add_pl.hidden {
     height: 0px;
+    -webkit-transition: height 0.3s ease-in-out;
+    -moz-transition: height 0.3s ease-in-out;
+    -o-transition: height 0.3s ease-in-out;
     transition: height 0.3s ease-in-out;
 }
 
@@ -247,6 +254,9 @@ body {
     position: relative;
     text-align: center;
     z-index: 10;
+    -webkit-transition: height 0.3s ease-in-out, box-shadow 0.6s linear;
+    -moz-transition: height 0.3s ease-in-out, box-shadow 0.6s linear;
+    -o-transition: height 0.3s ease-in-out, box-shadow 0.6s linear;
     transition: height 0.3s ease-in-out, box-shadow 0.6s linear;
     padding: 0px 20px;
     background: #c6e1ec;
@@ -263,6 +273,9 @@ body {
 
 #add_to_playlist input:checked ~ #add_track_cont {
     height: 106px;
+    -webkit-transition: height 0.5s ease-in-out, box-shadow 0.1s linear;
+    -moz-transition: height 0.5s ease-in-out, box-shadow 0.1s linear;
+    -o-transition: height 0.5s ease-in-out, box-shadow 0.1s linear;
     transition: height 0.5s ease-in-out, box-shadow 0.1s linear;
 }
 
@@ -345,8 +358,9 @@ body {
 }
 
 #playlist_tracks {
-    margin: 24px;
+    margin: 24px 0;
     padding: 24px;
+    min-width: 512px;
     background-color: #ffffff;
     border-radius: 15px;
     box-shadow: 0 1px 1px #d4e4ef;
@@ -386,6 +400,9 @@ body {
     line-height: 2;
     cursor: pointer;
     width: 276px;
+    -webkit-transition: all 0.3s ease-in-out;
+    -moz-transition: all 0.3s ease-in-out;
+    -o-transition: all 0.3s ease-in-out;
     transition: all 0.3s ease-in-out;
 }
 
@@ -404,6 +421,9 @@ body {
     width: 304px;
     border-right: #ffffff 1px solid;
     border-radius: 0 25px 25px 0;
+    -webkit-transition: all 0.3s ease-in-out;
+    -moz-transition: all 0.3s ease-in-out;
+    -o-transition: all 0.3s ease-in-out;
     transition: all 0.3s ease-in-out;
 }
 
@@ -444,12 +464,20 @@ body {
     text-shadow: 0 1px 1px rgba(255, 255, 255, 0.6);
     text-align: center;
     margin: 7px 0;
+    -webkit-transition: opacity 0.3s ease-in-out;
+    -moz-transition: opacity 0.3s ease-in-out;
+    -o-transition: opacity 0.3s ease-in-out;
+    transition: opacity 0.3s ease-in-out;
 }
 
 #pl_list li:hover dd,
 #pl_list li.selected dd {
     opacity: 1;
     filter: alpha(opacity = 100);
+
+    -webkit-transition: opacity 0.3s ease-in-out;
+    -moz-transition: opacity 0.3s ease-in-out;
+    -o-transition: opacity 0.3s ease-in-out;
     transition: opacity 0.3s ease-in-out;
 }
 
@@ -463,5 +491,10 @@ body {
     background: -ms-linear-gradient(top, #950202 0%, #b22112 100%);
     background: linear-gradient(to bottom, #950202 0%, #b22112 100%);
     filter: progid:DXImageTransform.Microsoft.gradient(startColorstr = '#950202', endColorstr = '#b22112', GradientType = 0);
+
+    -webkit-transition: background 0.3s ease-in-out;
+    -moz-transition: background 0.3s ease-in-out;
+    -o-transition: background 0.3s ease-in-out;
+    transition: background 0.3s ease-in-out;
 
 }

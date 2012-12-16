@@ -53,17 +53,17 @@ var fUtils = {
                 $('li:last', _all_lists).addClass('selected');
             }
 
-            $('dt', _all_lists).on('click', function (e) {
-                playlist.show();
-                var plTitle = $(this);
+            $('li', _all_lists).on('click', function (e) {
+                playlist.show(300);
+                var plTitle = $('dt',this);
                 _pl.addClass('hidden');
                 add_chk_b.attr('checked','checked');
-                plTitle.closest('li').addClass('selected').siblings().removeClass('selected');
+                plTitle.addClass('selected').siblings().removeClass('selected');
                 fUtils.addTracks(plTitle.text());
             });
 
             $('dd', _all_lists).on('click', function (e) {
-               if($(this).closest('li').hasClass('selected')) {playlist.hide();}
+               if($(this).closest('li').hasClass('selected')) {playlist.hide(300);}
                var plTitle = $(this).prev().text();
                fUtils.deleteList(plTitle);
            });
@@ -117,7 +117,7 @@ var fUtils = {
             pl_title.html(_playlist);
             pl_description.html(fUtils.settings.playLists[_playlist].description);
             pl_big_title.text(_playlist);
-            _plEdit.show();
+            _plEdit.show(300);
         },
         deleteList: function(list){
             delete fUtils.settings.playLists[list];
