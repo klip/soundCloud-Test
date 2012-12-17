@@ -197,7 +197,6 @@ var fUtils = {
 
         fUtils.settings.playLists[_pl].tracks.splice(removeT+1,1);
 
-        console.log(fUtils.settings.playLists[_pl].tracks);
         delete window['track'+removeT];
         _obj.parent().parent().remove();
         fUtils.setPlaylists();
@@ -205,10 +204,8 @@ var fUtils = {
         $('li', _trackCont).each(function(e){
             var _this = $(this);
             var _trackId = _this.find('iframe').attr('id');
-            console.log(_trackId);
 
             var nextTrackId = _this.next().find('iframe').attr('id');
-
             var nextTrack = (typeof window[nextTrackId] != 'undefined')?window[nextTrackId]:false;
 
             if(typeof window[_trackId] != 'undefined'){
