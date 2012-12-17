@@ -164,31 +164,64 @@ var fUtils = {
         var tracks_list = $(fUtils.settings.selectors.tracks_list);
 
         var trackId = 'track'+_id;
-
-        if(typeof window[trackId] != 'undefined'){
-            /*window[trackId].unbind(SC.Widget.Events.FINISH);
-            delete window[trackId];*/
-        }
-
         $track.attr('id', trackId);
         var track = document.createElement('li');
 
-        $(track).append($track);
+
+        $(track).append('<dl class="clearfix"></dl>');
+        $('dl',track).append('<dt class="remove" data-track="'+_id+'">-</dt>').append('<dd></dd>');
+        $('dd',track).append($track);
         tracks_list.prepend(track);
+
+        $('.remove', track).click(function(e){
+            var _obj = $(this);
+            fUtils.removeTrack(_obj);
+        });
+
         $track.load(function(){
-            window[trackId] = SC.Widget(trackId);
-            window[trackId].bind(SC.Widget.Events.FINISH, fUtils.playNext(_id));
+            var nextTrack = (typeof window['track'+(_id-1)] != 'undefined')?window['track'+(_id-1)]:false;
+            window[trackId] = new SC.Widget(trackId);
+            window[trackId].bind(SC.Widget.Events.FINISH, function(){
+                if(nextTrack!=false){
+                    nextTrack.play();
+                }
+            });
 
         });
     },
-    playNext:function(_id){
+    removeTrack:function(_obj){
+        //console.log(_obj);
+        var removeT = parseInt(_obj.attr('data-track'));
+        var _pl = $(fUtils.settings.selectors.pl_title).text();
+        var _trackCont = _obj.closest('ul');
 
-        var trackId = 'track'+(_id-1);
-console.log(trackId);
-            if(typeof window[trackId] != 'undefined')
-            {
-                window[trackId].play();
+        fUtils.settings.playLists[_pl].tracks.splice(removeT+1,1);
+
+        console.log(fUtils.settings.playLists[_pl].tracks);
+        delete window['track'+removeT];
+        _obj.parent().parent().remove();
+        fUtils.setPlaylists();
+
+        $('li', _trackCont).each(function(e){
+            var _this = $(this);
+            var _trackId = _this.find('iframe').attr('id');
+            console.log(_trackId);
+
+            var nextTrackId = _this.next().find('iframe').attr('id');
+
+            var nextTrack = (typeof window[nextTrackId] != 'undefined')?window[nextTrackId]:false;
+
+            if(typeof window[_trackId] != 'undefined'){
+                window[_trackId].unbind(SC.Widget.Events.FINISH);
+
+                window[_trackId].bind(SC.Widget.Events.FINISH, function(){
+                    if(nextTrack!=false){
+                        nextTrack.play();
+                    }
+                });
             }
+
+        });
     },
     deleteList: function (list) {
         delete fUtils.settings.playLists[list];
