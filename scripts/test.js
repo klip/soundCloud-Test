@@ -138,7 +138,7 @@ var fUtils = {
                 return;
             }
             fUtils.settings.playLists[_playlist].tracks.push(t_field_val);
-            fUtils.pushTrack(t_field_val, fUtils.settings.playLists[_playlist].tracks.length);
+            fUtils.pushTrack(t_field_val, (fUtils.settings.playLists[_playlist].tracks.length-1));
             t_field.val('');
             fUtils.setPlaylists();
         });
@@ -182,7 +182,13 @@ var fUtils = {
         });
     },
     playNext:function(_id){
-        console.log('finnished');
+
+        var trackId = 'track'+(_id-1);
+console.log(trackId);
+            if(typeof window[trackId] != 'undefined')
+            {
+                window[trackId].play();
+            }
     },
     deleteList: function (list) {
         delete fUtils.settings.playLists[list];
