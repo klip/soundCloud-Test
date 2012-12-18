@@ -2,13 +2,20 @@ Test given by SoundCloud.com to Igor Raihlin
 
 URL: http://klip.grm.im/git/SCtest.git/soundCloud-Test/
 
+Dropbox url: https://www.dropbox.com/s/znbc5c835jnilxa/soundCloud-Test-master.zip
+
+
+
 Applications allows creating, removing custom playlists of SoundCloud tracks
+
 
 * Application is fully functional in latest Mozilla Firefox, Google Chrome and Opera browsers
 
 ** No special development done for IE
 
 *** Application is based on HTML5 local storage specs
+
+
 
 -- HOW TO --
 
