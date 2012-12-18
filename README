@@ -1,1 +1,29 @@
 Test given by SoundCloud.com to Igor Raihlin
+
+
+Applications allows creating, removing custom playlists of SoundCloud tracks
+
+* Application is fully functional in latest Mozilla Firefox, Google Chrome and Opera browsers
+
+** No special development done for IE
+
+*** Application is based on HTML5 local storage specs
+
+-- HOW TO --
+
+1.  Create new playlist
+a.	Click the “+ Create new playlist” button
+b.	Add title (required)
+c.	Add Description (optional)
+d.	Click + button
+2.	Removing playlist
+a.	Click “x” button on each playlist
+3.	Adding tracks
+a.	Copy tracks Widget code from “Share” dialog of one sound on SoundCloud.com
+b.	Paste it into “Widget Code” field
+c.	Click + button
+4.	Removing tracks
+a.	Click “-” button near each track
+Enjoy
+
+© Created by Igor Raihlin, design.klipart@gmail.com
