@@ -224,6 +224,18 @@ END CSS reset ------------------------------------------------------------------
     margin-left: 24px;
     float: right;
     vertical-align: middle;
+    -webkit-transition: all 0.3s ease-in-out;
+    -moz-transition: all 0.3s ease-in-out;
+    -o-transition: all 0.3s ease-in-out;
+    transition: all 0.3s ease-in-out;
+}
+.error{
+    color: #950202;
+    border-color: #690202;
+    -webkit-transition: all 0.3s ease-in-out;
+    -moz-transition: all 0.3s ease-in-out;
+    -o-transition: all 0.3s ease-in-out;
+    transition: all 0.3s ease-in-out;
 }
 #playlist_all #add_pl .txt {
     width: 155px;
@@ -446,18 +458,6 @@ END CSS reset ------------------------------------------------------------------
 #add_track_f {
     float: none;
     margin-right: 24px;
-    -webkit-transition: all 0.3s ease-in-out;
-    -moz-transition: all 0.3s ease-in-out;
-    -o-transition: all 0.3s ease-in-out;
-    transition: all 0.3s ease-in-out;
-}
-#add_track_f.error{
-    color: #950202;
-    border-color: #690202;
-    -webkit-transition: all 0.3s ease-in-out;
-    -moz-transition: all 0.3s ease-in-out;
-    -o-transition: all 0.3s ease-in-out;
-    transition: all 0.3s ease-in-out;
 }
 
 .submit {

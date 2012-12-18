@@ -47,13 +47,14 @@ var fUtils = {
     getCurrentList:function(){
         var _playlistsC = localStorage.getItem('sc_current') || '';
         if (_playlistsC !== '') {
-            fUtils.settings.current =_playlistsC;
-        }else if($('li:first',fUtils.settings.selectors.all_lists).length!=-1){
-            fUtils.settings.current = $('li:first dd',fUtils.settings.selectors.all_lists);
+            fUtils.settings.current = _playlistsC;
+        }else if($('li:first',fUtils.settings.selectors.all_lists).length>0){
+            fUtils.settings.current = $('li:first',fUtils.settings.selectors.all_lists).attr('data-list');
         }else{
-            _playlistsC='';
+            fUtils.settings.current='';
         }
-        $('li[data-list='+_playlistsC+']',fUtils.settings.selectors.all_lists).click();
+        console.log(fUtils.settings.current);
+        $('li[data-list="'+fUtils.settings.current+'"]',fUtils.settings.selectors.all_lists).click();
 
     },// END Getting currently selected playlist (Is set in fUtils.refreshList() && fUtils.addPlayList() methods)
 
@@ -131,6 +132,11 @@ var fUtils = {
             e.preventDefault();
             var trackT = add_pl_title.val();
             var trackD = add_pl_descr.val();
+
+            if(trackT===''){
+                add_pl_title.addClass('error').val('Title is required').focus(function(){$(this).removeClass('error').val('')});
+                return;
+            };
 
             fUtils.settings.playLists[trackT] = {title: trackT, description: trackD, tracks: []};
 
