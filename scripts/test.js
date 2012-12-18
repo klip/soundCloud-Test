@@ -5,12 +5,17 @@
  */
 ;window.Modernizr=function(a,b,c){function u(a){j.cssText=a}function v(a,b){return u(prefixes.join(a+";")+(b||""))}function w(a,b){return typeof a===b}function x(a,b){return!!~(""+a).indexOf(b)}function y(a,b,d){for(var e in a){var f=b[a[e]];if(f!==c)return d===!1?a[e]:w(f,"function")?f.bind(d||b):f}return!1}var d="2.6.2",e={},f=!0,g=b.documentElement,h="modernizr",i=b.createElement(h),j=i.style,k,l={}.toString,m={},n={},o={},p=[],q=p.slice,r,s={}.hasOwnProperty,t;!w(s,"undefined")&&!w(s.call,"undefined")?t=function(a,b){return s.call(a,b)}:t=function(a,b){return b in a&&w(a.constructor.prototype[b],"undefined")},Function.prototype.bind||(Function.prototype.bind=function(b){var c=this;if(typeof c!="function")throw new TypeError;var d=q.call(arguments,1),e=function(){if(this instanceof e){var a=function(){};a.prototype=c.prototype;var f=new a,g=c.apply(f,d.concat(q.call(arguments)));return Object(g)===g?g:f}return c.apply(b,d.concat(q.call(arguments)))};return e}),m.localstorage=function(){try{return localStorage.setItem(h,h),localStorage.removeItem(h),!0}catch(a){return!1}};for(var z in m)t(m,z)&&(r=z.toLowerCase(),e[r]=m[z](),p.push((e[r]?"":"no-")+r));return e.addTest=function(a,b){if(typeof a=="object")for(var d in a)t(a,d)&&e.addTest(d,a[d]);else{a=a.toLowerCase();if(e[a]!==c)return e;b=typeof b=="function"?b():b,typeof f!="undefined"&&f&&(g.className+=" "+(b?"":"no-")+a),e[a]=b}return e},u(""),i=k=null,function(a,b){function k(a,b){var c=a.createElement("p"),d=a.getElementsByTagName("head")[0]||a.documentElement;return c.innerHTML="x<style>"+b+"</style>",d.insertBefore(c.lastChild,d.firstChild)}function l(){var a=r.elements;return typeof a=="string"?a.split(" "):a}function m(a){var b=i[a[g]];return b||(b={},h++,a[g]=h,i[h]=b),b}function n(a,c,f){c||(c=b);if(j)return c.createElement(a);f||(f=m(c));var g;return f.cache[a]?g=f.cache[a].cloneNode():e.test(a)?g=(f.cache[a]=f.createElem(a)).cloneNode():g=f.createElem(a),g.canHaveChildren&&!d.test(a)?f.frag.appendChild(g):g}function o(a,c){a||(a=b);if(j)return a.createDocumentFragment();c=c||m(a);var d=c.frag.cloneNode(),e=0,f=l(),g=f.length;for(;e<g;e++)d.createElement(f[e]);return d}function p(a,b){b.cache||(b.cache={},b.createElem=a.createElement,b.createFrag=a.createDocumentFragment,b.frag=b.createFrag()),a.createElement=function(c){return r.shivMethods?n(c,a,b):b.createElem(c)},a.createDocumentFragment=Function("h,f","return function(){var n=f.cloneNode(),c=n.createElement;h.shivMethods&&("+l().join().replace(/\w+/g,function(a){return b.createElem(a),b.frag.createElement(a),'c("'+a+'")'})+");return n}")(r,b.frag)}function q(a){a||(a=b);var c=m(a);return r.shivCSS&&!f&&!c.hasCSS&&(c.hasCSS=!!k(a,"article,aside,figcaption,figure,footer,header,hgroup,nav,section{display:block}mark{background:#FF0;color:#000}")),j||p(a,c),a}var c=a.html5||{},d=/^<|^(?:button|map|select|textarea|object|iframe|option|optgroup)$/i,e=/^(?:a|b|code|div|fieldset|h1|h2|h3|h4|h5|h6|i|label|li|ol|p|q|span|strong|style|table|tbody|td|th|tr|ul)$/i,f,g="_html5shiv",h=0,i={},j;(function(){try{var a=b.createElement("a");a.innerHTML="<xyz></xyz>",f="hidden"in a,j=a.childNodes.length==1||function(){b.createElement("a");var a=b.createDocumentFragment();return typeof a.cloneNode=="undefined"||typeof a.createDocumentFragment=="undefined"||typeof a.createElement=="undefined"}()}catch(c){f=!0,j=!0}})();var r={elements:c.elements||"abbr article aside audio bdi canvas data datalist details figcaption figure footer header hgroup mark meter nav output progress section summary time video",shivCSS:c.shivCSS!==!1,supportsUnknownElements:j,shivMethods:c.shivMethods!==!1,type:"default",shivDocument:q,createElement:n,createDocumentFragment:o};a.html5=r,q(b)}(this,b),e._version=d,g.className=g.className.replace(/(^|\s)no-js(\s|$)/,"$1$2")+(f?" js "+p.join(" "):""),e}(this,this.document),function(a,b,c){function d(a){return"[object Function]"==o.call(a)}function e(a){return"string"==typeof a}function f(){}function g(a){return!a||"loaded"==a||"complete"==a||"uninitialized"==a}function h(){var a=p.shift();q=1,a?a.t?m(function(){("c"==a.t?B.injectCss:B.injectJs)(a.s,0,a.a,a.x,a.e,1)},0):(a(),h()):q=0}function i(a,c,d,e,f,i,j){function k(b){if(!o&&g(l.readyState)&&(u.r=o=1,!q&&h(),l.onload=l.onreadystatechange=null,b)){"img"!=a&&m(function(){t.removeChild(l)},50);for(var d in y[c])y[c].hasOwnProperty(d)&&y[c][d].onload()}}var j=j||B.errorTimeout,l=b.createElement(a),o=0,r=0,u={t:d,s:c,e:f,a:i,x:j};1===y[c]&&(r=1,y[c]=[]),"object"==a?l.data=c:(l.src=c,l.type=a),l.width=l.height="0",l.onerror=l.onload=l.onreadystatechange=function(){k.call(this,r)},p.splice(e,0,u),"img"!=a&&(r||2===y[c]?(t.insertBefore(l,s?null:n),m(k,j)):y[c].push(l))}function j(a,b,c,d,f){return q=0,b=b||"j",e(a)?i("c"==b?v:u,a,b,this.i++,c,d,f):(p.splice(this.i++,0,a),1==p.length&&h()),this}function k(){var a=B;return a.loader={load:j,i:0},a}var l=b.documentElement,m=a.setTimeout,n=b.getElementsByTagName("script")[0],o={}.toString,p=[],q=0,r="MozAppearance"in l.style,s=r&&!!b.createRange().compareNode,t=s?l:n.parentNode,l=a.opera&&"[object Opera]"==o.call(a.opera),l=!!b.attachEvent&&!l,u=r?"object":l?"script":"img",v=l?"script":u,w=Array.isArray||function(a){return"[object Array]"==o.call(a)},x=[],y={},z={timeout:function(a,b){return b.length&&(a.timeout=b[0]),a}},A,B;B=function(a){function b(a){var a=a.split("!"),b=x.length,c=a.pop(),d=a.length,c={url:c,origUrl:c,prefixes:a},e,f,g;for(f=0;f<d;f++)g=a[f].split("="),(e=z[g.shift()])&&(c=e(c,g));for(f=0;f<b;f++)c=x[f](c);return c}function g(a,e,f,g,h){var i=b(a),j=i.autoCallback;i.url.split(".").pop().split("?").shift(),i.bypass||(e&&(e=d(e)?e:e[a]||e[g]||e[a.split("/").pop().split("?")[0]]),i.instead?i.instead(a,e,f,g,h):(y[i.url]?i.noexec=!0:y[i.url]=1,f.load(i.url,i.forceCSS||!i.forceJS&&"css"==i.url.split(".").pop().split("?").shift()?"c":c,i.noexec,i.attrs,i.timeout),(d(e)||d(j))&&f.load(function(){k(),e&&e(i.origUrl,h,g),j&&j(i.origUrl,h,g),y[i.url]=2})))}function h(a,b){function c(a,c){if(a){if(e(a))c||(j=function(){var a=[].slice.call(arguments);k.apply(this,a),l()}),g(a,j,b,0,h);else if(Object(a)===a)for(n in m=function(){var b=0,c;for(c in a)a.hasOwnProperty(c)&&b++;return b}(),a)a.hasOwnProperty(n)&&(!c&&!--m&&(d(j)?j=function(){var a=[].slice.call(arguments);k.apply(this,a),l()}:j[n]=function(a){return function(){var b=[].slice.call(arguments);a&&a.apply(this,b),l()}}(k[n])),g(a[n],j,b,n,h))}else!c&&l()}var h=!!a.test,i=a.load||a.both,j=a.callback||f,k=j,l=a.complete||f,m,n;c(h?a.yep:a.nope,!!i),i&&c(i)}var i,j,l=this.yepnope.loader;if(e(a))g(a,0,l,0);else if(w(a))for(i=0;i<a.length;i++)j=a[i],e(j)?g(j,0,l,0):w(j)?B(j):Object(j)===j&&h(j,l);else Object(a)===a&&h(a,l)},B.addPrefix=function(a,b){z[a]=b},B.addFilter=function(a){x.push(a)},B.errorTimeout=1e4,null==b.readyState&&b.addEventListener&&(b.readyState="loading",b.addEventListener("DOMContentLoaded",A=function(){b.removeEventListener("DOMContentLoaded",A,0),b.readyState="complete"},0)),a.yepnope=k(),a.yepnope.executeStack=h,a.yepnope.injectJs=function(a,c,d,e,i,j){var k=b.createElement("script"),l,o,e=e||B.errorTimeout;k.src=a;for(o in d)k.setAttribute(o,d[o]);c=j?h:c||f,k.onreadystatechange=k.onload=function(){!l&&g(k.readyState)&&(l=1,c(),k.onload=k.onreadystatechange=null)},m(function(){l||(l=1,c(1))},e),i?k.onload():n.parentNode.insertBefore(k,n)},a.yepnope.injectCss=function(a,c,d,e,g,i){var e=b.createElement("link"),j,c=i?h:c||f;e.href=a,e.rel="stylesheet",e.type="text/css";for(j in d)e.setAttribute(j,d[j]);g||(n.parentNode.insertBefore(e,n),m(c,0))}}(this,document),Modernizr.load=function(){yepnope.apply(window,[].slice.call(arguments,0))};
 
-$(document).ready(function () {
+/*
+ * SC widget API
+* */
+(function(){function b(e){if(!d[e]){var f=d[e]={exports:{}};c[e].call(f.exports,a,f,b)}return d[e].exports}var a=this,c=b.modules=[],d=b.cache=[];c[0]=function(a,b,c){function J(a){n(a)&&(a=document.getElementById(a));if(!!a){if(arguments.length>1){var b=arguments[1],c=arguments[2]||{};a.src=j+"?url="+b+"&"+B(c)}var d=y(s(a));if(d&&d.instance)return d.instance;var e=m.indexOf(s(a))>-1,f=new F(a);l.push(new E(f,a,e));return f}}function D(a){var b,c,d,e;try{c=JSON.parse(a.data)}catch(f){}b=y(a.source),d=c.method,e=c.value,d===i.READY&&(b?(b.isReady=!0,C(b,k),v(k,b)):m.push(a.source));if(!b||a.origin!==b.domain)return!1;var g=[];e!==undefined&&g.push(e),C(b,d,g)}function C(a,b,c){var d,e,f=a.callbacks[b]||[];for(d=0,e=f.length;d<e;d++)f[d].apply(a.instance,c);if(p(b)||b===i.READY)a.callbacks[b]=[]}function B(a){var b,c,d=[];for(b in a)a.hasOwnProperty(b)&&(c=a[b],d.push(b+"="+(b==="start_track"?parseInt(c,10):c?"true":"false")));return d.join("&")}function A(a,b,c){var d,e,f;for(d=0,e=b.length;d<e;d++)f=b[d],a[f]=z(f,c)}function z(a,b){return function(c){var d=o(c),e=x(this),f=!d&&b?c:null,g=d&&!b?c:null;g&&u(a,g,e),w(a,f,e.element);return this}}function y(a){var b;q(function(c){if(s(c.element)===a){b=c;return!1}});return b}function x(a){var b;q(function(c){if(c.instance===a){b=c;return!1}});return b}function w(a,b,c){var d=s(c);if(!d.postMessage)return!1;var e=c.getAttribute("src").split("?")[0],f=JSON.stringify({method:a,value:b});e.substr(0,2)==="//"&&(e=window.location.protocol+e),d.postMessage(f,e)}function v(a,b){var c=!0,d;b.callbacks[a]=[],q(function(b){d=b.callbacks[a]||[];if(d.length){c=!1;return!1}});return c}function u(a,b,c){c.callbacks[a]=c.callbacks[a]||[],c.callbacks[a].push(b)}function t(a){var b=[],c;for(c in a)a.hasOwnProperty(c)&&b.push(a[c]);return b}function s(a){return a.contentWindow/*||a.contentDocument.parentWindow*/}function r(a){var b="",c,d;a.substr(0,2)==="//"&&(a=window.location.protocol+a);var e=a.split("/");for(c=0,d=e.length;c<d;c++){if(c<3)b+=e[c];else break;c<2&&(b+="/")}return b}function q(a){var b,c,d;for(b=0,c=l.length;b<c;b++){d=a(l[b]);if(d===!1)break}}function p(a){var b=!1,c;for(c in f)if(f.hasOwnProperty(c)&&f[c]===a){b=!0;break}return b}function o(a){return!!(a&&a.constructor&&a.call&&a.apply)}function n(a){return!!(a===""||a&&a.charCodeAt&&a.substr)}var d=this,e=c(1),f=c(2),g=c(3),h=e.bridge,i=e.api,j="http://wt.soundcloud.com/player/",k="__LATE_BINDING__",l=[],m=[],E=function(a,b,c){this.instance=a,this.element=b,this.domain=r(b.getAttribute("src")),this.isReady=!!c,this.callbacks={}},F=function(){},G=F.prototype={load:function(a,b){if(!!a){b=b||{};var c=this,d=x(this),e=d.element,f=e.src,g=f.substr(0,f.indexOf("?"));d.isReady=!1,e.onload=function(){c.bind(i.READY,function(){var a,c=d.callbacks;for(a in c)c.hasOwnProperty(a)&&a!==i.READY&&w(h.ADD_LISTENER,a,d.element);b.callback&&b.callback()})},e.src=g+"?url="+a+"&"+B(b)}},bind:function(a,b){var c=this,d=x(this);d&&d.element&&(a===i.READY&&d.isReady?setTimeout(b,1):d.isReady?(u(a,b,d),w(h.ADD_LISTENER,a,d.element)):u(k,function(){c.bind(a,b)},d));return this},unbind:function(a){var b=x(this);if(b&&b.element){var c=v(a,b);a!==i.READY&&c&&w(h.REMOVE_LISTENER,a,b.element)}}},H=t(f),I=t(g);A(G,H),A(G,I,!0),window.addEventListener?window.addEventListener("message",D,!1):window.attachEvent("onmessage",D),J.Events=i,a.SC=a.SC||{},a.SC.Widget=J},c[1]=function(a,b,c){var d=this;d.api={LOAD_PROGRESS:"loadProgres",PLAY_PROGRESS:"playProgress",PLAY:"play",PAUSE:"pause",FINISH:"finish",SEEK:"seek",READY:"ready",OPEN_SHARE_PANEL:"sharePanelOpened",SHARE:"share",CLICK_DOWNLOAD:"downloadClicked",CLICK_BUY:"buyClicked"},d.bridge={REMOVE_LISTENER:"removeEventListener",ADD_LISTENER:"addEventListener"}},c[2]=function(a,b,c){var d=this;b.exports={GET_VOLUME:"getVolume",GET_DURATION:"getDuration",GET_POSITION:"getPosition",GET_SOUNDS:"getSounds",GET_CURRENT_SOUND:"getCurrentSound",GET_CURRENT_SOUND_INDEX:"getCurrentSoundIndex",IS_PAUSED:"isPaused"}},c[3]=function(a,b,c){var d=this;b.exports={PLAY:"play",PAUSE:"pause",TOGGLE:"toggle",SEEK_TO:"seekTo",SET_VOLUME:"setVolume",NEXT:"next",PREV:"prev",SKIP:"skip"}},b(0)})()
 
-    fUtils.init();
+$(document).ready(function () {
+    fUtils.init(); //initialize app
 });
 var fUtils = {
     settings: {
+        /* Sizzle selectors used in the app */
         selectors: {
             add_pl_b: '#create_pl',
             add_pl: '#add_pl',
@@ -26,15 +31,33 @@ var fUtils = {
             pl_big_title: '#plylist_title',
             pl_title: '#pl_title',
             pl_description: '#pl_description'
-        },
-        playLists: {},
-        widgets:[]
+        }, //END Sizzle selectors used in the app
+        playLists: {}, //local variable for holding playlists object recieved from local storage
+        current: '' //currently selected playlist
     },
+
+    /* Getting playlists and tracks from the local storage */
     getPlayLists: function () {
         var _playlistsV = localStorage.getItem('sc_playlists') || '';
         fUtils.settings.playLists = (_playlistsV !== '') ? $.parseJSON(_playlistsV) : fUtils.settings.playLists;
         fUtils.refreshList();
-    },
+    }, //END Getting playlists and tracks from the local storage
+
+    /* Getting currently selected playlist (Is set in fUtils.refreshList() && fUtils.addPlayList() methods) */
+    getCurrentList:function(){
+        var _playlistsC = localStorage.getItem('sc_current') || '';
+        if (_playlistsC !== '') {
+            fUtils.settings.current =_playlistsC;
+        }else if($('li:first',fUtils.settings.selectors.all_lists).length!=-1){
+            fUtils.settings.current = $('li:first dd',fUtils.settings.selectors.all_lists);
+        }else{
+            _playlistsC='';
+        }
+        $('li[data-list='+_playlistsC+']',fUtils.settings.selectors.all_lists).click();
+
+    },// END Getting currently selected playlist (Is set in fUtils.refreshList() && fUtils.addPlayList() methods)
+
+    /* Refresh playlists left menu according to fUtils.settings.playLists */
     refreshList: function (_new) {
         var _all_lists = $(fUtils.settings.selectors.all_lists);
         var _pl = $(fUtils.settings.selectors.add_pl);
@@ -45,7 +68,7 @@ var fUtils = {
 
         for (var p in fUtils.settings.playLists) {
             if (fUtils.settings.playLists.hasOwnProperty(p)) {
-                _pl_HTML += '<li><dl class="clearfix"><dt>' + fUtils.settings.playLists[p].title + '</dt><dd>˟</dd></dl></li>';
+                _pl_HTML += '<li data-list="' + fUtils.settings.playLists[p].title + '"><dl class="clearfix"><dt>' + fUtils.settings.playLists[p].title + '</dt><dd>˟</dd></dl></li>';
             }
         }
         _pl_HTML += '</ul>';
@@ -53,6 +76,11 @@ var fUtils = {
 
         if (typeof _new != 'undefined' && _new === 'new') {
             $('li:last', _all_lists).addClass('selected');
+        }else{
+            var _playlistsC = localStorage.getItem('sc_current') || '';
+            if (_playlistsC !== '') {
+                $('li[data-list='+_playlistsC+']',fUtils.settings.selectors.all_lists).addClass('selected');
+            }
         }
 
         $('li', _all_lists).on('click', function (e) {
@@ -62,6 +90,7 @@ var fUtils = {
             add_chk_b.attr('checked', 'checked');
             $(this).addClass('selected').siblings().removeClass('selected');
             fUtils.addTracks(plTitle.text());
+            localStorage.setItem('sc_current',plTitle.text());
         });
 
         $('dd', _all_lists).on('click', function (e) {
@@ -71,8 +100,9 @@ var fUtils = {
             var plTitle = $(this).prev().text();
             fUtils.deleteList(plTitle);
         });
-        //console.log(fUtils.settings.playLists);
-    },
+    }, //Refresh playlists left menu according to fUtils.settings.playLists
+
+    /* Store  fUtils.settings.playList to local Storage on every change */
     setPlaylists: function (_new) {
         var json_data = JSON.stringify(fUtils.settings.playLists);
         if (Modernizr.localstorage) {
@@ -81,18 +111,22 @@ var fUtils = {
             alert("No local Storage - don't wanna work");
         }
         fUtils.refreshList(_new);
-    },
+    },// End tore  fUtils.settings.playList to local Storage on every change
+
+    /* Creating new playlist */
     addPlayList: function () {
         var _pl = $(fUtils.settings.selectors.add_pl);
         var add_chk_b = $(fUtils.settings.selectors.add_chk_b);
         var add_pl_title = $(fUtils.settings.selectors.add_pl_title, _pl);
         var add_pl_descr = $(fUtils.settings.selectors.add_pl_descr, _pl);
+        var tracksHolder = $(fUtils.settings.selectors.tracks_list);
 
         add_pl_title.val('');
         add_pl_descr.val('');
 
         add_chk_b.removeAttr('checked');
         _pl.removeClass('hidden');
+
         _pl.submit(function (e) {
             e.preventDefault();
             var trackT = add_pl_title.val();
@@ -100,15 +134,18 @@ var fUtils = {
 
             fUtils.settings.playLists[trackT] = {title: trackT, description: trackD, tracks: []};
 
+            localStorage.setItem('sc_current',trackT);
             fUtils.setPlaylists('new');
 
             $(this).addClass('hidden');
             add_chk_b.attr('checked', 'checked');
+            tracksHolder.html('<li id="pl_empty">No tracks</li>');
 
             fUtils.addTracks(trackT);
-
         });
-    },
+    },// End Creating new playlist
+
+    /* Opens content of selected or created playlist and add tracks to playlist content */
     addTracks: function (_playlist) {
         var _plEdit = $(fUtils.settings.selectors.playlist);
         var _pl = fUtils.settings.playLists[_playlist];
@@ -126,48 +163,53 @@ var fUtils = {
         pl_description.html(fUtils.settings.playLists[_playlist].description);
         pl_big_title.text(_playlist);
         _plEdit.show(300);
+        $('.txt', _plEdit).removeClass('error');
 
         fUtils.refreshTracks(_playlist);
 
+        /* Prepare DOM for new track, adding new track to local playlists' obj and refreshing the tracks list in playlist  */
         add_tr_f.unbind('submit').submit(function (e) {
             e.preventDefault();
             var t_field = $(fUtils.settings.selectors.add_tr_value, add_tr_f);
             var t_field_val = t_field.val();
-            if(t_field_val.indexOf('soundcloud.com')<0){
-                alert('Not a SoundCloud URL');
+            if(t_field_val.indexOf('soundcloud.com')<0&&t_field_val.indexOf('iframe')<0){
+                t_field.addClass('error').val('Not a SoundCloud Wiget').focus(function(){$(this).removeClass('error').val('')});
                 return;
             }
             fUtils.settings.playLists[_playlist].tracks.push(t_field_val);
-            fUtils.pushTrack(t_field_val, (fUtils.settings.playLists[_playlist].tracks.length-1));
+            fUtils.refreshTracks(_playlist);
             t_field.val('');
             fUtils.setPlaylists();
         });
-    },
+    },// END Open add tracks to playlist dialog
+
+    /* Refreshing tracklist in currently selected playlist */
     refreshTracks:function(_playlist){
         var pl_empty = $(fUtils.settings.selectors.pl_empty);
         var tracks_list = $(fUtils.settings.selectors.tracks_list);
 
         if(fUtils.settings.playLists[_playlist].tracks.length>0){
-            tracks_list.html('').append(pl_empty);
+            var _height = tracks_list.height();
+            tracks_list.html('').css('height',_height).append(pl_empty).css('height', 'auto');
             pl_empty.hide();
             for (var t in fUtils.settings.playLists[_playlist].tracks) {
                 if (fUtils.settings.playLists[_playlist].tracks.hasOwnProperty(t)) {
-                    //delete window['track'+t];
                     fUtils.pushTrack(fUtils.settings.playLists[_playlist].tracks[t], t);
                 }
             }
         }
-    },
-    pushTrack:function(_track, _id){
+    },// END Refreshing tracklist in currently selected playlist
 
+    /* Adding new track to playlist and setting auto play for next track */
+    pushTrack:function(_track, _id){
         var $track = $(_track);
         var tracks_list = $(fUtils.settings.selectors.tracks_list);
 
         var trackId = 'track'+_id;
         $track.attr('id', trackId);
+
+        /* Adding new track to DOM */
         var track = document.createElement('li');
-
-
         $(track).append('<dl class="clearfix"></dl>');
         $('dl',track).append('<dt class="remove" data-track="'+_id+'">-</dt>').append('<dd></dd>');
         $('dd',track).append($track);
@@ -178,7 +220,7 @@ var fUtils = {
             fUtils.removeTrack(_obj);
         });
 
-        $track.load(function(){
+        $track.load(function(){ //setting auto play for next track
             var nextTrack = (typeof window['track'+(_id-1)] != 'undefined')?window['track'+(_id-1)]:false;
             window[trackId] = new SC.Widget(trackId);
             window[trackId].bind(SC.Widget.Events.FINISH, function(){
@@ -188,19 +230,22 @@ var fUtils = {
             });
 
         });
-    },
+    }, // END Adding new track to playlist and setting auto play for next track */
+
+    /* Removing track from currently selected playlist */
     removeTrack:function(_obj){
-        //console.log(_obj);
         var removeT = parseInt(_obj.attr('data-track'));
         var _pl = $(fUtils.settings.selectors.pl_title).text();
         var _trackCont = _obj.closest('ul');
+        var _plEmpty = $(fUtils.settings.selectors.pl_empty);
 
-        fUtils.settings.playLists[_pl].tracks.splice(removeT+1,1);
+        fUtils.settings.playLists[_pl].tracks.splice(removeT,1); // Remove track from local playlists obj
 
+        /* Remove track from DOM */
         delete window['track'+removeT];
         _obj.parent().parent().remove();
-        fUtils.setPlaylists();
 
+        /* Rebind FINISH events for next track after DOM removals */
         $('li', _trackCont).each(function(e){
             var _this = $(this);
             var _trackId = _this.find('iframe').attr('id');
@@ -210,7 +255,6 @@ var fUtils = {
 
             if(typeof window[_trackId] != 'undefined'){
                 window[_trackId].unbind(SC.Widget.Events.FINISH);
-
                 window[_trackId].bind(SC.Widget.Events.FINISH, function(){
                     if(nextTrack!=false){
                         nextTrack.play();
@@ -218,23 +262,33 @@ var fUtils = {
                 });
             }
 
+            /* Showing the "No tracks" text again*/
+           if (_plEmpty.siblings().length<1){
+               _plEmpty.show();
+           }
+
+            fUtils.setPlaylists();
         });
-    },
+    },// END Removing track from currently selected playlist
+
+    /* Delete playlist  */
     deleteList: function (list) {
         delete fUtils.settings.playLists[list];
         fUtils.setPlaylists();
-    },
+    },// END Delete playlist
+
+
+    /* INIT PROJECT */
     init: function () {
         var add_pl_b = $(fUtils.settings.selectors.add_pl_b);
 
         fUtils.getPlayLists();
-
-
+        fUtils.getCurrentList();
 
         //Adding new playlist
         add_pl_b.click(function () {
             fUtils.addPlayList();
         });
 
-    }
+    }/* END INIT PROJECT */
 };
