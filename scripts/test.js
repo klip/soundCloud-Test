@@ -291,44 +291,20 @@ var fUtils = {
         fUtils.setPlaylists();
     },// END Delete playlist
 
-    addTrackFromSC:function(){
+    addTrackFromSC: function () {
         var shr_btn = $(fUtils.settings.selectors.sc_share_b);
-
-
         var d_box = $(fUtils.settings.selectors.sc_dialog);
-            d_box.on('DOMSubtreeModified', function(){
+        d_box.on('DOMSubtreeModified', function () {
 
-                $(this).off('DOMSubtreeModified');
+            $(this).off('DOMSubtreeModified');
 
-                if(typeof _form === 'undefined'){
-
-                    var w_code = $(fUtils.settings.selectors.sc_sh_cont, d_box).val();
-
-                    var _playlistsV = localStorage.getItem('sc_playlists')||'';
-
-                    fUtils.settings.playLists = (_playlistsV !== '') ? $.parseJSON(_playlistsV) : fUtils.settings.playLists;
-
-                    console.log(fUtils.settings.playLists);
-                    var _form = '<form id="sc_remote_add_to_pl" style="display:none;position:absolute;z-index:1000;left:100px;top:10px;width:400px;background: #ffffff;border-radius: 22px;border: 1px solid #DDDDDD;box-shadow: 0 2px 7px -1px rgba(0, 0, 0, 0.4);padding:10px;">' +
-                        '<fieldset><label for="select_pl">Select playlist</label><select id="select_pl">';
-                    if(_playlistsV !== ''){
-                        for (var p in fUtils.settings.playLists) {
-                            if (fUtils.settings.playLists.hasOwnProperty(p)) {
-                                _form += '<option value="'+fUtils.settings.playLists[p].title +'">'+fUtils.settings.playLists[p].title+'</option>';
-                            }
-                        }
-                    }
+            var w_code = $(fUtils.settings.selectors.sc_sh_cont, d_box).val();
 
 
-                    _form+='</select> </fieldset>' +
-                        '<input type="submit" value="add" class="sc-button"/> ' +
-                        '</form>';
-                    $('body').append(_form);
-                    _form = $('#sc_remote_add_to_pl');
-                    _form.fadeIn(300).submit(function(e){
-                        e.preventDefault();
-                    });
-                }
+            $('body').append('<iframe width="500" height="500" id="sc_remote_add_to_pl" style="display:none;position:absolute;z-index:1000;right:100px;top:10px;width:500px;" src="http://klip.grm.im/git/SCtest.git/soundCloud-Test/addFromSC.php?track="' + w_code + '></iframe>');
+
+            var _form = $('#sc_remote_add_to_pl');
+            _form.fadeIn(300);
 
         });
     },
