@@ -294,8 +294,6 @@ var fUtils = {
     },// END Delete playlist
 
     addTrackFromSC:function(){
-        MutationObserver = window.MutationObserver || window.WebKitMutationObserver;
-
         var shr_btn = $(fUtils.settings.selectors.sc_share_b);
         shr_btn.on('DOMSubtreeModified', function(){
             alert("tree changed");
