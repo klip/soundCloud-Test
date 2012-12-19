@@ -293,8 +293,6 @@ var fUtils = {
 
     addTrackFromSC: function () {
         var shr_btn = $(fUtils.settings.selectors.sc_share_b);
-        delete $._data(shr_btn[0], 'events').click[0];
-        console.log($._data(shr_btn[0], 'events'));
         var d_box = $(fUtils.settings.selectors.sc_dialog);
         d_box.on('DOMSubtreeModified', function () {
             var _d_box =$(this);
@@ -316,6 +314,7 @@ var fUtils = {
             var _iframe = $(fUtils.settings.selectors.remoteSCIframe);
             _iframe.fadeOut(300, function () {
                 $(this).remove();
+                window.location = window.location;
             });
         }
         else {
