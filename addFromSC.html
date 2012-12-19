@@ -2,8 +2,41 @@
 <html>
 <head>
     <title>Fetch Playlists</title>
+    <style type="text/css">
+        .body{
+            background: #ffffff;
+            border-radius: 6px;
+            border:1px solid #CCCCCC;
+        }
+        .sc-button {
+            -moz-box-sizing: border-box;
+            -moz-user-select: none;
+            background-color: #FCFCFC;
+            background-image: -moz-linear-gradient(center top , rgba(255, 255, 255, 0) 0%, rgba(235, 235, 235, 0.3) 60%, rgba(225, 225, 225, 0.6) 100%);
+            border-radius: 4px 4px 4px 4px;
+            border: 1px solid #E1E1E1;
+            box-shadow: 0px 1px 2px rgba(0, 0, 0, 0.02), 0px 1px 0px rgba(255, 255, 255, 0.7) inset, -1px 0px 0px rgba(255, 255, 255, 0.7) inset, 0px -1px 0px rgba(255, 255, 255, 0.5) inset, 1px 0px 0px rgba(255, 255, 255, 0.7) inset;
+            color: #333333;
+            cursor: pointer;
+            display: inline-block;
+            font-family: "Interstate","Lucida Grande","Lucida Sans Unicode","Lucida Sans",Garuda,Verdana,Tahoma,sans-serif;
+            font-size: 14px;
+            font-weight: 100;
+            height: 26px;
+            line-height: 20px;
+            margin: 0px 0px 0px 6px;
+            overflow: hidden;
+            padding: 2px 10px;
+            position: relative;
+            text-align: center;
+            text-shadow: 0px 1px 0px #FFFFFF;
+            vertical-align: baseline;
+            white-space: nowrap;
+        }
+
+    </style>
 </head>
-<body style="background: #ffffff;">
+<body>
 <form id="sc_remote_add">
     <select style="width: 180px; box-shadow: 0 0 4px rgba(0, 0, 0, 0.15) inset;color: #666666;padding: 6px 5px 7px;border:1px solid #CCCCCC;"></select>
 <input type="submit" value="Add" class="sc-button"/>
@@ -47,11 +80,11 @@
             _f.submit(function(e){
                 var _ff = $(this);
                 var _pl = $('select').val();
-                alert(_pl);
                 e.preventDefault();
                 SCUtils.settings.playLists[_pl].tracks.push(_track);
                 var json_data = JSON.stringify(SCUtils.settings.playLists);
                 localStorage.setItem('sc_playlists', json_data);
+                window.parent.fUtils.closeTrackFromSC();
             });
 
         } //END Getting playlists and tracks from the local storage

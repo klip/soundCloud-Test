@@ -40,7 +40,7 @@ var fUtils = {
             sc_dialog: 'div.dialog',
             sc_sh_cont: '#shareContent__widgetCodeField',
             sc_share_b: '.sc-button-share',
-            domModified: false
+            remoteSCIframe: '#sc_remote_add_to_pl'
         }, //END Sizzle selectors used in the app
         playLists: {}, //local variable for holding playlists object recieved from local storage
         current: '' //currently selected playlist
@@ -300,14 +300,17 @@ var fUtils = {
 
             var w_code = encodeURIComponent($(fUtils.settings.selectors.sc_sh_cont, d_box).val());
 
-            $("body").append("<iframe width='300' height='60' id='sc_remote_add_to_pl' style='display:none;position:absolute;z-index:1000;right:100px;top:10px;width:500px;' src='http://klip.grm.im/git/SCtest.git/soundCloud-Test/addFromSC.html#"+w_code+"'></iframe>");
+            $("body").append("<iframe width='280' height='50' frameBorder="0""  id='"+fUtils.settings.selectors.remoteSCIframe.replace("#","")+"' style='display:none;position:absolute;z-index:1000;right:100px;top:10px;width:280px;border-radius:6px;' src='http://klip.grm.im/git/SCtest.git/soundCloud-Test/addFromSC.html#"+w_code+"'></iframe>");
 
             var _form = $('#sc_remote_add_to_pl');
             _form.fadeIn(300);
 
         });
     },
-
+    closeTrackFromSC: function{
+        var _iframe = $('fUtils.settings.selectors.remoteSCIframe');
+        _iframe.fadeOut(300,function(){$(this).remove();});
+    },
     /* INIT PROJECT */
     init: function () {
         var add_pl_b = $(fUtils.settings.selectors.add_pl_b);
