@@ -51,7 +51,7 @@
                 console.log()
                 e.preventDefault();
                 SCUtils.settings.playLists[_pl].tracks.push(_track);
-                var json_data = JSON.stringify(fUtils.settings.playLists);
+                var json_data = JSON.stringify(SCUtils.settings.playLists);
                 localStorage.setItem('sc_playlists', json_data);
             });
 
