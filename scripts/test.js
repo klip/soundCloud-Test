@@ -295,24 +295,25 @@ var fUtils = {
         $('body').on('DOMSubtreeModified', function(){
             //alert("tree changed");
                 var d_box = $(fUtils.settings.selectors.sc_dialog);
-                d_box.hide(0,function(){
-                    var w_code = $(fUtils.settings.selectors.sc_sh_cont).val();
+                if(d_box.length>0){
+                    var w_code = $(fUtils.settings.selectors.sc_sh_cont, d_box).val();
+                    console.log(w_code);
                     var _form = '<form id="sc_remote_add_to_pl" style="display:none;position:absolute;z-index:1000;left:100px;top:10px;width:400px;background: #ffffff;border-radius: 22px;border: 1px solid #DDDDDD;box-shadow: 0 2px 7px -1px rgba(0, 0, 0, 0.4);padding:10px;">' +
                         '<fieldset><label for="select_pl">Select playlist</label><select id="select_pl">';
-                        for (var p in fUtils.settings.playLists) {
-                            if (fUtils.settings.playLists.hasOwnProperty(p)) {
-                                _form += '<option value="'+fUtils.settings.playLists[p].title +'">'+fUtils.settings.playLists[p].title+'</option>';
-                            }
+                    for (var p in fUtils.settings.playLists) {
+                        if (fUtils.settings.playLists.hasOwnProperty(p)) {
+                            _form += '<option value="'+fUtils.settings.playLists[p].title +'">'+fUtils.settings.playLists[p].title+'</option>';
                         }
-                        _form+='</select> </fieldset>' +
-                            '<input type="submit" value="add" class="sc-button"/> ' +
-                            '</form>';
+                    }
+                    _form+='</select> </fieldset>' +
+                        '<input type="submit" value="add" class="sc-button"/> ' +
+                        '</form>';
                     $('body').append(_form);
                     _form = $('#sc_remote_add_to_pl');
                     _form.fadeIn(300).submit(function(e){
                         e.preventDefault();
                     });
-                });
+                }
         });
     },
 
