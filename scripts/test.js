@@ -314,7 +314,7 @@ var fUtils = {
             var _iframe = $(fUtils.settings.selectors.remoteSCIframe);
             _iframe.fadeOut(300, function () {
                 $(this).remove();
-                window.location = window.location;
+                window.location.href = window.location.href;
             });
         }
         else {
