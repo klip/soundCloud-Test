@@ -311,10 +311,11 @@ var fUtils = {
             var _iframe = $(fUtils.settings.selectors.remoteSCIframe);
             _iframe.fadeOut(300, function () {
                 $(this).remove();
+                window.location.hash = '';
             });
         }
         else {
-            setTimeout(fUtils.closeTrackFromSC, 100)
+            setTimeout(fUtils.closeTrackFromSC, 100);
         }
     },
     /* INIT PROJECT */
