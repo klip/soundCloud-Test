@@ -6,7 +6,7 @@ $track=$_GET['track'];
 <head>
     <title>Fetch Playlists</title>
 </head>
-<body>
+<body style="background: #ffffff;">
 <form id="sc_remote_add">
     <select></select>
 </form>
@@ -27,12 +27,12 @@ $track=$_GET['track'];
         /* Getting playlists and tracks from the local storage */
         getPlayLists: function () {
             var _playlistsV = localStorage.getItem('sc_playlists') || '';
-            fUtils.settings.playLists = (_playlistsV !== '') ? $.parseJSON(_playlistsV) : fUtils.settings.playLists;
+            SCUtils.settings.playLists = (_playlistsV !== '') ? $.parseJSON(_playlistsV) : SCUtils.settings.playLists;
             console.log( _playlistsV);
             var _pl_HTML='';
-            for (var p in fUtils.settings.playLists) {
-                if (fUtils.settings.playLists.hasOwnProperty(p)) {
-                    _pl_HTML += '<option value="' + fUtils.settings.playLists[p].title + '">' + fUtils.settings.playLists[p].title + '</option>';
+            for (var p in SCUtils.settings.playLists) {
+                if (SCUtils.settings.playLists.hasOwnProperty(p)) {
+                    _pl_HTML += '<option value="' + SCUtils.settings.playLists[p].title + '">' + SCUtils.settings.playLists[p].title + '</option>';
                 }
             }
             $('select',SCUtils.settings.selectors.add_pl_f).append(_pl_HTML);
