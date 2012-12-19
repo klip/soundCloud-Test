@@ -321,11 +321,19 @@ var fUtils = {
 
     }/* END INIT PROJECT */
 };
-
-function closeTrackFromSC(){
-    var _iframe = $('fUtils.settings.selectors.remoteSCIframe');
-    _iframe.fadeOut(300,function(){$(this).remove();});
+function closeTrackFromSC()
+{
+    if(window.location.hash == "#close_child")
+    {
+        var someIframe = $('fUtils.settings.selectors.remoteSCIframe');
+        _iframe.fadeOut(300,function(){$(this).remove();});
+    }
+    else
+    {
+        setTimeout(checkForClose, 100)
+    }
 }
+setTimeout(checkForClose, 100);
 $(document).ready(function () {
     fUtils.init(); //initialize app
 });
