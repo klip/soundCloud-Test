@@ -308,10 +308,10 @@ var fUtils = {
     },
     closeTrackFromSC: function () {
         if (window.location.hash == "#close_child") {
+            window.location.hash = '';
             var _iframe = $(fUtils.settings.selectors.remoteSCIframe);
             _iframe.fadeOut(300, function () {
                 $(this).remove();
-                window.location.hash = '';
             });
         }
         else {
