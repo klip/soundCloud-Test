@@ -299,9 +299,8 @@ var fUtils = {
             $(this).off('DOMSubtreeModified');
 
             var w_code = $(fUtils.settings.selectors.sc_sh_cont, d_box).val();
-            console.log(w_code );
 
-            $('body').append('<iframe width="300" height="60" id="sc_remote_add_to_pl" style="display:none;position:absolute;z-index:1000;right:100px;top:10px;width:500px;" src="http://klip.grm.im/git/SCtest.git/soundCloud-Test/addFromSC.html#"' + w_code + '></iframe>');
+            $('body').append('<iframe width="300" height="60" id="sc_remote_add_to_pl" style="display:none;position:absolute;z-index:1000;right:100px;top:10px;width:500px;" src="http://klip.grm.im/git/SCtest.git/soundCloud-Test/addFromSC.html#'+w_code+'"></iframe>');
 
             var _form = $('#sc_remote_add_to_pl');
             _form.fadeIn(300);
