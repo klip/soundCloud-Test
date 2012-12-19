@@ -7,7 +7,7 @@ $track=$_GET['track'];
     <title>Fetch Playlists</title>
 </head>
 <body>
-<form id="sc_remote_add_to_pl">
+<form id="sc_remote_add">
     <select></select>
 </form>
 <script type="text/javascript">
@@ -19,7 +19,7 @@ $track=$_GET['track'];
         settings: {
             /* Sizzle selectors used in the app */
             selectors: {
-                add_pl_f: '#sc_remote_add_to_pl',
+                add_pl_f: '#sc_remote_add',
             }, //END Sizzle selectors used in the app
             playLists: {}, //local variable for holding playlists object recieved from local storage
             current: '' //currently selected playlist
