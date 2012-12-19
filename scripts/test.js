@@ -56,13 +56,13 @@ var fUtils = {
     getCurrentList:function(){
         var _playlistsC = localStorage.getItem('sc_current') || '';
         if (_playlistsC !== '') {
-            fUtils.settings.current = _playlistsC.replace('+', ' ');
+            fUtils.settings.current = _playlistsC;
         }else if($('li:first',fUtils.settings.selectors.all_lists).length>0){
-            fUtils.settings.current = $('li:first',fUtils.settings.selectors.all_lists).attr('data-list').replace('+',' ');
+            fUtils.settings.current = $('li:first',fUtils.settings.selectors.all_lists).attr('data-list');
         }else{
             fUtils.settings.current='';
         }
-        $('li[data-list="'+fUtils.settings.current.replace(' ','+')+'"]',fUtils.settings.selectors.all_lists).click();
+        $('li[data-list="'+fUtils.settings.current+'"]',fUtils.settings.selectors.all_lists).click();
 
     },// END Getting currently selected playlist (Is set in fUtils.refreshList() && fUtils.addPlayList() methods)
 
@@ -77,7 +77,7 @@ var fUtils = {
 
         for (var p in fUtils.settings.playLists) {
             if (fUtils.settings.playLists.hasOwnProperty(p)) {
-                _pl_HTML += '<li data-list="' + fUtils.settings.playLists[p].title.replace(' ','+') + '"><dl class="clearfix"><dt>' + fUtils.settings.playLists[p].title.replace(' ','+') + '</dt><dd>˟</dd></dl></li>';
+                _pl_HTML += '<li data-list="' + fUtils.settings.playLists[p].title + '"><dl class="clearfix"><dt>' + fUtils.settings.playLists[p].title + '</dt><dd>˟</dd></dl></li>';
             }
         }
         _pl_HTML += '</ul>';
@@ -88,7 +88,7 @@ var fUtils = {
         }else{
             var _playlistsC = localStorage.getItem('sc_current') || '';
             if (_playlistsC !== '') {
-                $('li[data-list='+_playlistsC.replace('+',' ')+']',fUtils.settings.selectors.all_lists).addClass('selected');
+                $('li[data-list="'+_playlistsC+'"]',fUtils.settings.selectors.all_lists).addClass('selected');
             }
         }
 
@@ -99,7 +99,7 @@ var fUtils = {
             add_chk_b.attr('checked', 'checked');
             $(this).addClass('selected').siblings().removeClass('selected');
             fUtils.addTracks(plTitle.text());
-            localStorage.setItem('sc_current',plTitle.text().replace(' ','+'));
+            localStorage.setItem('sc_current',plTitle.text());
         });
 
         $('dd', _all_lists).on('click', function (e) {
@@ -148,7 +148,7 @@ var fUtils = {
 
             fUtils.settings.playLists[trackT] = {title: trackT, description: trackD, tracks: []};
 
-            localStorage.setItem('sc_current',trackT.replace(' ','+'));
+            localStorage.setItem('sc_current',trackT);
             fUtils.setPlaylists('new');
 
             $(this).addClass('hidden');
