@@ -146,7 +146,7 @@ END CSS reset ------------------------------------------------------------------
 
 #create_pl {
     margin: 0 12px;
-    padding: 12px;
+    padding: 12px 0;
     cursor: pointer;
 }
 
