@@ -46,8 +46,8 @@
             $('select',_f).append(_pl_HTML);
             _f.submit(function(e){
                 var _ff = $(this);
-                var _pl = $('select', _ff).val();
-                console.log(_pl);
+                var _pl = $('select').val();
+                alert(_pl);
                 e.preventDefault();
                 SCUtils.settings.playLists[_pl].tracks.push(_track);
                 var json_data = JSON.stringify(SCUtils.settings.playLists);
