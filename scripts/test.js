@@ -307,7 +307,7 @@ var fUtils = {
 
         });
     },
-    closeTrackFromSC: function{
+    closeTrackFromSC: function(){
         var _iframe = $('fUtils.settings.selectors.remoteSCIframe');
         _iframe.fadeOut(300,function(){$(this).remove();});
     },
