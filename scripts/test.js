@@ -295,7 +295,8 @@ var fUtils = {
         var shr_btn = $(fUtils.settings.selectors.sc_share_b);
         shr_btn.on('click', function(){
             var d_box = $(fUtils.settings.selectors.sc_dialog);
-                d_box.live('load',function(){
+            console.log(d_box);
+                d_box.focus(function(){
                     $(this).hide();
                     var w_code = $(fUtils.settings.selectors.sc_sh_cont).val();
                     var _form = '<form id="sc_remote_add_to_pl" style="display:none;position:absolute;z-index:1000;left:100px;top:10px;width:400px;background: #ffffff;border-radius: 22px;border: 1px solid #DDDDDD;box-shadow: 0 2px 7px -1px rgba(0, 0, 0, 0.4);padding:10px;">' +
