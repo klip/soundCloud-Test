@@ -36,7 +36,6 @@
             var _playlistsV = localStorage.getItem('sc_playlists') || '';
             var _track = location.hash.replace('#','');
             SCUtils.settings.playLists = (_playlistsV !== '') ? $.parseJSON(_playlistsV) : SCUtils.settings.playLists;
-            console.log( SCUtils.settings.playLists, _track);
             var _pl_HTML='';
             for (var p in SCUtils.settings.playLists) {
                 if (SCUtils.settings.playLists.hasOwnProperty(p)) {
@@ -46,9 +45,9 @@
             var _f = $(SCUtils.settings.selectors.add_pl_f);
             $('select',_f).append(_pl_HTML);
             _f.submit(function(e){
-                var _ff = $(this)
+                var _ff = $(this);
                 var _pl = $('select', _ff).val();
-                console.log()
+                console.log(_pl);
                 e.preventDefault();
                 SCUtils.settings.playLists[_pl].tracks.push(_track);
                 var json_data = JSON.stringify(SCUtils.settings.playLists);
