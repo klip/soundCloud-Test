@@ -298,16 +298,8 @@ var fUtils = {
 
         var shr_btn = $(fUtils.settings.selectors.sc_share_b);
         shr_btn.on('click', function(){
-
-            var observer = new MutationObserver(function(mutations, observer) {
-                console.log(mutations, observer);
-                // ...
-            });
-
-            observer.observe(document, {
-                subtree: true,
-                attributes: true
-                //...
+            $(this).bind("DOMSubtreeModified", function() {
+                alert("tree changed");
             });
                 /*var d_box = $(fUtils.settings.selectors.sc_dialog);
                 console.log(d_box);*/
