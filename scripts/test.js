@@ -294,10 +294,23 @@ var fUtils = {
     },// END Delete playlist
 
     addTrackFromSC:function(){
+        MutationObserver = window.MutationObserver || window.WebKitMutationObserver;
+
         var shr_btn = $(fUtils.settings.selectors.sc_share_b);
         shr_btn.on('click', function(){
-                var d_box = $(fUtils.settings.selectors.sc_dialog);
-                console.log(d_box);
+
+            var observer = new MutationObserver(function(mutations, observer) {
+                console.log(mutations, observer);
+                // ...
+            });
+
+            observer.observe(document, {
+                subtree: true,
+                attributes: true
+                //...
+            });
+                /*var d_box = $(fUtils.settings.selectors.sc_dialog);
+                console.log(d_box);*/
 
                 /*d_box.focus(function(){
                     $(this).hide();
