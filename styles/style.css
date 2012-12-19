@@ -146,6 +146,7 @@ END CSS reset ------------------------------------------------------------------
 
 #create_pl {
     margin: 0 12px;
+    padding: 8px 0;
     cursor: pointer;
 }
 
@@ -466,7 +467,7 @@ END CSS reset ------------------------------------------------------------------
 
 .add_b {
     overflow: hidden;
-    display: inline-block;
+    display: inline;
     -moz-border-radius: 22px;
     -webkit-border-radius: 22px;
     border-radius: 22px;
