@@ -293,48 +293,6 @@ var fUtils = {
         fUtils.setPlaylists();
     },// END Delete playlist
 
-    addTrackFromSC:function(){
-        MutationObserver = window.MutationObserver || window.WebKitMutationObserver;
-
-        var shr_btn = $(fUtils.settings.selectors.sc_share_b);
-        shr_btn.on('click', function(){
-
-            var observer = new MutationObserver(function(mutations, observer) {
-                console.log(mutations, observer);
-                // ...
-            });
-
-            observer.observe(document, {
-                subtree: true,
-                attributes: true
-                //...
-            });
-                /*var d_box = $(fUtils.settings.selectors.sc_dialog);
-                console.log(d_box);*/
-
-                /*d_box.focus(function(){
-                    $(this).hide();
-                    var w_code = $(fUtils.settings.selectors.sc_sh_cont).val();
-                    var _form = '<form id="sc_remote_add_to_pl" style="display:none;position:absolute;z-index:1000;left:100px;top:10px;width:400px;background: #ffffff;border-radius: 22px;border: 1px solid #DDDDDD;box-shadow: 0 2px 7px -1px rgba(0, 0, 0, 0.4);padding:10px;">' +
-                        '<fieldset><label for="select_pl">Select playlist</label><select id="select_pl">';
-                        for (var p in fUtils.settings.playLists) {
-                            if (fUtils.settings.playLists.hasOwnProperty(p)) {
-                                _form += '<option value="'+fUtils.settings.playLists[p].title +'">'+fUtils.settings.playLists[p].title+'</option>';
-                            }
-                        }
-                        _form+='</select> </fieldset>' +
-                            '<input type="submit" value="add" class="sc-button"/> ' +
-                            '</form>';
-                    $('body').append(_form);
-                    _form = $('#sc_remote_add_to_pl');
-                    _form.fadeIn(300).submit(function(e){
-                        e.preventDefault();
-                        console.log(w_code);
-                    });
-                });*/
-        });
-    },
-
     /* INIT PROJECT */
     init: function () {
         var add_pl_b = $(fUtils.settings.selectors.add_pl_b);
