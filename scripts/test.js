@@ -325,7 +325,7 @@ var fUtils = {
 function closeTrackFromSC(){
     var _iframe = $('fUtils.settings.selectors.remoteSCIframe');
     _iframe.fadeOut(300,function(){$(this).remove();});
-},
+}
 $(document).ready(function () {
     fUtils.init(); //initialize app
 });
