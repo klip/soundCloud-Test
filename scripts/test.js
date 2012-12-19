@@ -330,10 +330,10 @@ function closeTrackFromSC()
     }
     else
     {
-        setTimeout(checkForClose, 100)
+        setTimeout(closeTrackFromSC, 100)
     }
 }
-setTimeout(checkForClose, 100);
+setTimeout(closeTrackFromSC, 100);
 $(document).ready(function () {
     fUtils.init(); //initialize app
 });
