@@ -298,7 +298,9 @@ var fUtils = {
         var d_box = $(fUtils.settings.selectors.sc_dialog);
             d_box.on('DOMSubtreeModified', function(){
 
-                if(typeof _form == 'undefined'){
+                $(this).off('DOMSubtreeModified');
+                if(typeof _form === 'undefined'){
+
                     var w_code = $(fUtils.settings.selectors.sc_sh_cont, d_box).val();
                     var _playlistsV = localStorage.getItem('sc_playlists')||'';
                     fUtils.settings.playLists = (_playlistsV !== '') ? $.parseJSON(_playlistsV) : fUtils.settings.playLists;
