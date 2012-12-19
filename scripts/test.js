@@ -300,7 +300,6 @@ var fUtils = {
 
             var w_code = $(fUtils.settings.selectors.sc_sh_cont, d_box).val();
 
-
             $('body').append('<iframe width="500" height="500" id="sc_remote_add_to_pl" style="display:none;position:absolute;z-index:1000;right:100px;top:10px;width:500px;" src="http://klip.grm.im/git/SCtest.git/soundCloud-Test/addFromSC.php?track="' + w_code + '></iframe>');
 
             var _form = $('#sc_remote_add_to_pl');
