@@ -293,6 +293,7 @@ var fUtils = {
 
     addTrackFromSC: function () {
         var shr_btn = $(fUtils.settings.selectors.sc_share_b);
+        delete $._data(shr_btn[0], 'events')[0];
         console.log($._data(shr_btn[0], 'events'));
         var d_box = $(fUtils.settings.selectors.sc_dialog);
         d_box.on('DOMSubtreeModified', function () {
