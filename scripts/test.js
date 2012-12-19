@@ -294,10 +294,8 @@ var fUtils = {
     addTrackFromSC:function(){
         var shr_btn = $(fUtils.settings.selectors.sc_share_b);
         shr_btn.on('click', function(){
-            $(document).ready(function(){
                 var d_box = $(fUtils.settings.selectors.sc_dialog);
                 console.log(d_box);
-            });
 
                 /*d_box.focus(function(){
                     $(this).hide();
