@@ -298,7 +298,7 @@ var fUtils = {
             var _d_box =$(this);
             _d_box.off('DOMSubtreeModified');
             var wg = $(fUtils.settings.selectors.sc_sh_cont, _d_box);
-            if(wg.length<1 || window.p_cd==true) {
+            if(wg.length<1) {
                 shr_btn.click();
             }else{
                 var w_code = $(fUtils.settings.selectors.sc_sh_cont, _d_box).val();
