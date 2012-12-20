@@ -308,7 +308,7 @@ var fUtils = {
                 var w_code = $(fUtils.settings.selectors.sc_sh_cont, _d_box).val();
                 $("body").append("<iframe width='280' height='50' frameBorder='0'  id='"+fUtils.settings.selectors.remoteSCIframe.replace("#","")+"' style='display:none;position:absolute;z-index:1000;right:100px;top:10px;width:280px;border-radius:6px;' src='http://klip.grm.im/git/SCtest.git/soundCloud-Test/addFromSC.html#"+w_code+"'></iframe>");
                 var _form = $(fUtils.settings.selectors.remoteSCIframe);
-                _form.fadeIn(300,function(){shr_btn.click();});
+                _form.fadeIn(300);
             }
         });
     },
