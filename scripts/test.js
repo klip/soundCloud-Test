@@ -293,12 +293,16 @@ var fUtils = {
 
     addTrackFromSC: function () {
         var shr_btn = $(fUtils.settings.selectors.sc_share_b);
+        if(shr_btn.length>0){
+            shr_btn.click();
+        }
         var d_box = $(fUtils.settings.selectors.sc_dialog);
         d_box.on('DOMSubtreeModified', function () {
             var _d_box =$(this);
             _d_box.off('DOMSubtreeModified');
+
             var wg = $(fUtils.settings.selectors.sc_sh_cont, _d_box);
-            if(wg.length<1 || window.p_cd==true) {
+            if(wg.length<1) {
                 shr_btn.click();
             }else{
                 var w_code = $(fUtils.settings.selectors.sc_sh_cont, _d_box).val();
