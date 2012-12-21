@@ -132,13 +132,15 @@ END CSS reset ------------------------------------------------------------------
     box-shadow: 0px 0px 0px 1px rgba(155, 155, 155, 0.3), 0px 2px 2px rgba(0, 0, 0, 0.1);
     margin-top: 71px;
 }
-
 #playlist_all h2 {
     font-size: 18px;
     color: #305869;
     margin: 0 12px;
 }
-
+#playlist_all #sc_connetct{
+    margin: 12px;
+    cursor: pointer;
+}
 #playlist_all menu {
     margin: 24px 0;
     display: none;
