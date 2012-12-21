@@ -348,6 +348,7 @@ var fUtils = {
                     $('h1').html(me.username+'\'s playground');
                 });
                 add_pl_menu.show(300);
+                sc_connect.hide();
                 fUtils.getPlayLists();
                 fUtils.getCurrentList();
 
