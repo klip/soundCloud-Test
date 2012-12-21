@@ -47,6 +47,11 @@
             }else{
                 $('select',_f).remove();
                 $(_f).prepend('<label for="sc-button">You have no playlists.</label>');
+                _f.submit(function(e){
+                    e.preventDefault();
+                    window.open('http://klip.grm.im/git/SCoembedApi.git/');
+                    window.parent.location.hash = "close_child";
+                });
             }
         } //END Getting playlists and tracks from the local storage
     };
