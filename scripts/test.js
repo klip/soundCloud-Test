@@ -238,8 +238,8 @@ var fUtils = {
 
             //Removing tracks from playlist
             $('.remove', track).click(function (e) {
-                var _obj = $(this);
-                fUtils.removeTrack(_obj);
+                var _id = $(this).attr('data-track');
+                fUtils.removeTrack(_id);
             });
 
             //setting auto play for next track
@@ -256,20 +256,20 @@ var fUtils = {
     }, // END Adding new track to playlist and setting auto play for next track */
 
     /* Removing track from currently selected playlist */
-    removeTrack:function(_obj){
-        var removeT = parseInt(_obj.attr('data-track'));
+    removeTrack:function(_id){
+        var removeT = parseInt(_id);
         var _pl = $(fUtils.settings.selectors.pl_title).text();
-        var _trackCont = _obj.closest('ul');
+        var _trackCont = _id.closest('ul');
         var _plEmpty = $(fUtils.settings.selectors.pl_empty);
 
         fUtils.settings.playLists[_pl].tracks.splice(removeT,1); // Remove track from local playlists obj
-
+        fUtils.refreshTracks(_pl);
         /* Remove track from DOM */
-        delete window['track'+removeT];
-        _obj.parent().parent().remove();
+        /*delete window['track'+removeT];
+        _id.parent().parent().remove();*/
 
         /* Rebind FINISH events for next track after DOM removals */
-        $('li', _trackCont).each(function(e){
+        /*$('li', _trackCont).each(function(e){
             var _this = $(this);
             var _trackId = _this.find('iframe').attr('id');
 
@@ -285,13 +285,13 @@ var fUtils = {
                 });
             }
 
-            /* Showing the "No tracks" text again*/
+            *//* Showing the "No tracks" text again*//*
            if (_plEmpty.siblings().length<1){
                _plEmpty.show();
            }
 
             fUtils.setPlaylists();
-        });
+        });*/
     },// END Removing track from currently selected playlist
 
     /* Delete playlist  */
