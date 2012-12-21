@@ -302,7 +302,7 @@ var fUtils = {
 
     addTrackFromSC: function () {
         var w_code = window.location.href;
-        $("body").append("<iframe width='280' height='50' frameBorder='0'  id='"+fUtils.settings.selectors.remoteSCIframe.replace("#","")+"' src='http://klip.grm.im/git/SCoembedApi.git/addFromSC.html#"+w_code+"' style='background: #ffffff;border-radius: 6px;border:1px solid #CCCCCC;box-shadow: 0px 0px 6px rgba(0, 0, 0, 0.3);display:none;position:absolute;z-index:1000;right:100px;top:10px;width:280px;border-radius:6px;'></iframe>");
+        $("body").append("<iframe width='280' height='45' frameBorder='0'  id='"+fUtils.settings.selectors.remoteSCIframe.replace("#","")+"' src='http://klip.grm.im/git/SCoembedApi.git/addFromSC.html#"+w_code+"' style='background: #ffffff;border-radius: 6px;border:1px solid #CCCCCC;box-shadow: 0px 0px 6px rgba(0, 0, 0, 0.3);display:none;position:absolute;z-index:1000;right:100px;top:10px;width:280px;border-radius:6px;'></iframe>");
         var _form = $(fUtils.settings.selectors.remoteSCIframe);
         _form.fadeIn(300);
         fUtils.closeTrackFromSC();
