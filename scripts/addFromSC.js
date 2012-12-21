@@ -23,6 +23,7 @@
         /* Getting playlists and tracks from the local storage */
         getPlayLists: function () {
             var _playlistsV = localStorage.getItem('sc_playlists') || '';
+            var _f = $(SCUtils.settings.selectors.add_pl_f);
 
             if(_playlistsV!=''){
                 var _track = location.hash.replace('#','');
@@ -33,7 +34,6 @@
                         _pl_HTML += '<option value="' + SCUtils.settings.playLists[p].title + '">' + SCUtils.settings.playLists[p].title + '</option>';
                     }
                 }
-                var _f = $(SCUtils.settings.selectors.add_pl_f);
                 $('select',_f).append(_pl_HTML);
                 _f.submit(function(e){
                     var _ff = $(this);
