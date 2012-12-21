@@ -382,10 +382,12 @@ var fUtils = {
                 });
             });
         } else {
-            SC.get('/me', function (me) {
-                fUtils.setCookie('scUserId', me.id);
-                $('h1').html(me.username + '\'s playground');
-                fUtils.preparePlayground();
+            SC.connect(function () {
+                SC.get('/me', function (me) {
+                    fUtils.setCookie('scUserId', me.id);
+                    $('h1').html(me.username + '\'s playground');
+                    fUtils.preparePlayground();
+                });
             });
         }
     }/* END INIT PROJECT */
