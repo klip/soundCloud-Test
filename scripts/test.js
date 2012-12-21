@@ -218,7 +218,8 @@ var fUtils = {
 
     /* Adding new track to playlist and setting auto play for next track */
     pushTrack:function(_track, _id){
-        //var $track = $(_track);
+        //vars
+        var track_url = _track;
         var tracks_list = $(fUtils.settings.selectors.tracks_list);
         var $track;
         var trackId = 'track'+_id;
@@ -228,22 +229,21 @@ var fUtils = {
         $(track).append('<dl class="clearfix"></dl>');
         $('dl',track).append('<dt class="remove" data-track="'+_id+'">-</dt>').append('<dd></dd>');
 
-        var track_url = _track;
-
+        //SC oEmbed
         SC.oEmbed(track_url, { auto_play: false }, function(oEmbed) {
             $track = $(oEmbed.html);
-
             $track.attr('id', trackId);
             $('dd',track).append($track);
-
             tracks_list.prepend(track);
 
+            //Removing tracks from playlist
             $('.remove', track).click(function (e) {
                 var _obj = $(this);
                 fUtils.removeTrack(_obj);
             });
 
-            $track.load(function () { //setting auto play for next track
+            //setting auto play for next track
+            $track.load(function () {
                 var nextTrack = (typeof window['track' + (_id - 1)] != 'undefined') ? window['track' + (_id - 1)] : false;
                 window[trackId] = new SC.Widget(trackId);
                 window[trackId].bind(SC.Widget.Events.FINISH, function () {
@@ -251,12 +251,8 @@ var fUtils = {
                         nextTrack.play();
                     }
                 });
-
             });
-
         });
-
-
     }, // END Adding new track to playlist and setting auto play for next track */
 
     /* Removing track from currently selected playlist */
@@ -305,25 +301,10 @@ var fUtils = {
     },// END Delete playlist
 
     addTrackFromSC: function () {
-        var shr_btn = $(fUtils.settings.selectors.sc_share_b);
-        if(shr_btn.length>0){
-            shr_btn.click();
-        }
-        var d_box = $(fUtils.settings.selectors.sc_dialog);
-        d_box.on('DOMSubtreeModified', function () {
-            var _d_box =$(this);
-            _d_box.off('DOMSubtreeModified');
-
-            var wg = $(fUtils.settings.selectors.sc_sh_cont, _d_box);
-            if(wg.length<1) {
-                shr_btn.click();
-            }else{
-                var w_code = $(fUtils.settings.selectors.sc_sh_cont, _d_box).val();
-                $("body").append("<iframe width='280' height='50' frameBorder='0'  id='"+fUtils.settings.selectors.remoteSCIframe.replace("#","")+"' style='display:none;position:absolute;z-index:1000;right:100px;top:10px;width:280px;border-radius:6px;' src='http://klip.grm.im/git/SCtest.git/soundCloud-Test/addFromSC.html#"+w_code+"'></iframe>");
-                var _form = $(fUtils.settings.selectors.remoteSCIframe);
-                _form.fadeIn(300);
-            }
-        });
+        var w_code = window.location.href;
+        $("body").append("<iframe width='280' height='50' frameBorder='0'  id='"+fUtils.settings.selectors.remoteSCIframe.replace("#","")+"' src='http://klip.grm.im/git/SCoembedApi.git/addFromSC.html#"+w_code+"' style='background: #ffffff;border-radius: 6px;border:1px solid #CCCCCC;box-shadow: 0px 0px 6px rgba(0, 0, 0, 0.3);display:none;position:absolute;z-index:1000;right:100px;top:10px;width:280px;border-radius:6px;'></iframe>");
+        var _form = $(fUtils.settings.selectors.remoteSCIframe);
+        _form.fadeIn(300);
     },
     closeTrackFromSC: function () {
         if (window.location.hash == "#close_child") {
