@@ -235,25 +235,28 @@ var fUtils = {
 
             $track.attr('id', trackId);
             $('dd',track).append($track);
-        });
 
-        tracks_list.prepend(track);
+            tracks_list.prepend(track);
 
-        $('.remove', track).click(function(e){
-            var _obj = $(this);
-            fUtils.removeTrack(_obj);
-        });
+            $('.remove', track).click(function (e) {
+                var _obj = $(this);
+                fUtils.removeTrack(_obj);
+            });
 
-        $track.load(function(){ //setting auto play for next track
-            var nextTrack = (typeof window['track'+(_id-1)] != 'undefined')?window['track'+(_id-1)]:false;
-            window[trackId] = new SC.Widget(trackId);
-            window[trackId].bind(SC.Widget.Events.FINISH, function(){
-                if(nextTrack!=false){
-                    nextTrack.play();
-                }
+            $track.load(function () { //setting auto play for next track
+                var nextTrack = (typeof window['track' + (_id - 1)] != 'undefined') ? window['track' + (_id - 1)] : false;
+                window[trackId] = new SC.Widget(trackId);
+                window[trackId].bind(SC.Widget.Events.FINISH, function () {
+                    if (nextTrack != false) {
+                        nextTrack.play();
+                    }
+                });
+
             });
 
         });
+
+
     }, // END Adding new track to playlist and setting auto play for next track */
 
     /* Removing track from currently selected playlist */
