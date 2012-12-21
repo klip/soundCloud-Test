@@ -324,14 +324,28 @@ var fUtils = {
         var sc_connect = $(fUtils.settings.selectors.sc_connect);
         var add_pl_b = $(fUtils.settings.selectors.add_pl_b);
         var add_pl_menu = $(fUtils.settings.selectors.add_pl_menu);
-        add_pl_menu.show(300);
-        sc_connect.hide();
-        fUtils.getPlayLists(); // Getting playlists and tracks from the local storage
-        fUtils.getCurrentList(); // Getting currently selected playlist (Is set in fUtils.refreshList() && fUtils.addPlayList() methods)
 
-        //Adding new playlist
-        add_pl_b.click(function () {
-            fUtils.addPlayList();
+        // initialize client with app credentials
+        SC.initialize({
+            client_id: 'fe5ad72e49de9b2b837438dc67909340',
+            redirect_uri: 'http://klip.grm.im/git/SCoembedApi.git/',
+            scope: 'non-expiring'
+        });
+        // initiate auth popup
+        SC.connect(function () {
+            SC.get('/me', function (me) {
+                fUtils.setCookie('scUserId', me.id);
+                $('h1').html(me.username + '\'s playground');
+                add_pl_menu.show(300);
+                sc_connect.hide();
+                fUtils.getPlayLists(); // Getting playlists and tracks from the local storage
+                fUtils.getCurrentList(); // Getting currently selected playlist (Is set in fUtils.refreshList() && fUtils.addPlayList() methods)
+
+                //Adding new playlist
+                add_pl_b.click(function () {
+                    fUtils.addPlayList();
+                });
+            });
         });
     },
     setCookie: function (name, value, expires, path, domain, secure) {
@@ -366,29 +380,10 @@ var fUtils = {
         if (userId == '') {
             // Connect with SC
             sc_connect.on('click', function () {
-                // initialize client with app credentials
-                SC.initialize({
-                    client_id: 'fe5ad72e49de9b2b837438dc67909340',
-                    redirect_uri: 'http://klip.grm.im/git/SCoembedApi.git/',
-                    scope: 'non-expiring'
-                });
-                // initiate auth popup
-                SC.connect(function () {
-                    SC.get('/me', function (me) {
-                        fUtils.setCookie('scUserId', me.id);
-                        $('h1').html(me.username + '\'s playground');
-                        fUtils.preparePlayground();
-                    });
-                });
+                fUtils.preparePlayground();
             });
         } else {
-            SC.connect(function () {
-                SC.get('/me', function (me) {
-                    fUtils.setCookie('scUserId', me.id);
-                    $('h1').html(me.username + '\'s playground');
-                    fUtils.preparePlayground();
-                });
-            });
+            fUtils.preparePlayground();
         }
     }/* END INIT PROJECT */
 };
