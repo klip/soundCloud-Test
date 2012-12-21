@@ -330,7 +330,8 @@ var fUtils = {
             // initialize client with app credentials
             SC.initialize({
                 client_id: 'fe5ad72e49de9b2b837438dc67909340',
-                redirect_uri: 'http://klip.grm.im/git/SCoembedApi.git/'
+                redirect_uri: 'http://klip.grm.im/git/SCoembedApi.git/',
+                scope: 'non-expiring'
             });
 
         // initiate auth popup
