@@ -26,6 +26,8 @@ var fUtils = {
     settings: {
         /* Sizzle selectors used in the app */
         selectors: {
+            add_pl_menu: '#playlist_all menu',
+            sc_connect:'#sc_connect',
             add_pl_b: '#create_pl',
             add_pl: '#add_pl',
             add_pl_title: '#add_pl_t',
@@ -329,32 +331,36 @@ var fUtils = {
     },
     /* INIT PROJECT */
     init: function () {
+        var sc_connect = $(fUtils.settings.selectors.sc_connect);
         var add_pl_b = $(fUtils.settings.selectors.add_pl_b);
+        var add_pl_menu = $(fUtils.settings.selectors.add_pl_menu);
 
-        fUtils.getPlayLists();
-        fUtils.getCurrentList();
+        sc_connect.on('click', function(){
+            // initialize client with app credentials
+            SC.initialize({
+                client_id: 'fe5ad72e49de9b2b837438dc67909340',
+                redirect_uri: 'http://klip.grm.im/git/SCoembedApi.git/'
+            });
 
-        //Adding new playlist
-        add_pl_b.click(function () {
-            fUtils.addPlayList();
+        // initiate auth popup
+            SC.connect(function() {
+                SC.get('/me', function(me) {
+                    $('h1').html(me.username+'\'s playground');
+                });
+                add_pl_menu.show(300);
+                fUtils.getPlayLists();
+                fUtils.getCurrentList();
+
+                //Adding new playlist
+                add_pl_b.click(function () {
+                    fUtils.addPlayList();
+                });
+            });
         });
-
     }/* END INIT PROJECT */
 };
 
 setTimeout(fUtils.closeTrackFromSC, 100);
 $(document).ready(function () {
-// initialize client with app credentials
-    SC.initialize({
-        client_id: 'fe5ad72e49de9b2b837438dc67909340',
-        redirect_uri: 'http://klip.grm.im/git/SCoembedApi.git/'
-    });
-
-// initiate auth popup
-    SC.connect(function() {
-        SC.get('/me', function(me) {
-            alert('Hello, ' + me.username);
-        });
-    });
     fUtils.init(); //initialize app
 });

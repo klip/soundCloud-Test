@@ -141,6 +141,7 @@ END CSS reset ------------------------------------------------------------------
 
 #playlist_all menu {
     margin: 24px 0;
+    display: none;
 }
 
 #create_pl {
