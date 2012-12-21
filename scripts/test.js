@@ -166,33 +166,30 @@ var fUtils = {
 
     /* Opens content of selected or created playlist and add tracks to playlist content */
     addTracks: function (_playlist) {
+        //vars
         var _plEdit = $(fUtils.settings.selectors.playlist);
         var _pl = fUtils.settings.playLists[_playlist];
         var pl_big_title = $(fUtils.settings.selectors.pl_big_title);
-
         var pl_title = $(fUtils.settings.selectors.pl_title);
         var pl_description = $(fUtils.settings.selectors.pl_description);
-
         var tracks_list = $(fUtils.settings.selectors.tracks_list);
         var pl_empty = $(fUtils.settings.selectors.pl_empty);
-
         var add_tr_f = $(fUtils.settings.selectors.add_tr_f);
 
-        pl_title.html(_playlist);
-        pl_description.html(fUtils.settings.playLists[_playlist].description);
-        pl_big_title.text(_playlist);
-        _plEdit.show(300);
+        pl_title.html(_playlist); //Setting the name of the current playlist
+        pl_description.html(fUtils.settings.playLists[_playlist].description); //Setting the playlist's descr
+        pl_big_title.text(_playlist); //Setting the name of the current playlist on edit form
+        _plEdit.show(300); //Showing the playlist's content
         $('.txt', _plEdit).removeClass('error');
 
         fUtils.refreshTracks(_playlist);
-
         /* Prepare DOM for new track, adding new track to local playlists' obj and refreshing the tracks list in playlist  */
         add_tr_f.unbind('submit').submit(function (e) {
             e.preventDefault();
             var t_field = $(fUtils.settings.selectors.add_tr_value, add_tr_f);
             var t_field_val = t_field.val();
-            if(t_field_val.indexOf('soundcloud.com')<0&&t_field_val.indexOf('iframe')<0){
-                t_field.addClass('error').val('Not a SoundCloud Wiget').focus(function(){$(this).removeClass('error').val('')});
+            if(t_field_val.indexOf('soundcloud.com')<0&&t_field_val.indexOf('http')<0){
+                t_field.addClass('error').val('Not a SoundCloud URL').focus(function(){$(this).removeClass('error').val('')});
                 return;
             }
             fUtils.settings.playLists[_playlist].tracks.push(t_field_val);
@@ -221,17 +218,24 @@ var fUtils = {
 
     /* Adding new track to playlist and setting auto play for next track */
     pushTrack:function(_track, _id){
-        var $track = $(_track);
+        //var $track = $(_track);
         var tracks_list = $(fUtils.settings.selectors.tracks_list);
 
         var trackId = 'track'+_id;
-        $track.attr('id', trackId);
+        //$track.attr('id', trackId);
 
         /* Adding new track to DOM */
         var track = document.createElement('li');
         $(track).append('<dl class="clearfix"></dl>');
         $('dl',track).append('<dt class="remove" data-track="'+_id+'">-</dt>').append('<dd></dd>');
-        $('dd',track).append($track);
+
+        var track_url = _track;
+
+        SC.oEmbed(track_url, { auto_play: true }, function(oEmbed) {
+          //console.log('oEmbed response: ' + oEmbed);
+            $('dd',track).append(oEmbed);
+        });
+
         tracks_list.prepend(track);
 
         $('.remove', track).click(function(e){
@@ -239,7 +243,7 @@ var fUtils = {
             fUtils.removeTrack(_obj);
         });
 
-        $track.load(function(){ //setting auto play for next track
+        /*oEmbed.load(function(){ //setting auto play for next track
             var nextTrack = (typeof window['track'+(_id-1)] != 'undefined')?window['track'+(_id-1)]:false;
             window[trackId] = new SC.Widget(trackId);
             window[trackId].bind(SC.Widget.Events.FINISH, function(){
@@ -248,7 +252,7 @@ var fUtils = {
                 }
             });
 
-        });
+        });*/
     }, // END Adding new track to playlist and setting auto play for next track */
 
     /* Removing track from currently selected playlist */
@@ -331,10 +335,12 @@ var fUtils = {
     },
     /* INIT PROJECT */
     init: function () {
+        //Vars
         var sc_connect = $(fUtils.settings.selectors.sc_connect);
         var add_pl_b = $(fUtils.settings.selectors.add_pl_b);
         var add_pl_menu = $(fUtils.settings.selectors.add_pl_menu);
 
+        // Connect with SC
         sc_connect.on('click', function(){
             // initialize client with app credentials
             SC.initialize({
@@ -347,10 +353,11 @@ var fUtils = {
                 SC.get('/me', function(me) {
                     $('h1').html(me.username+'\'s playground');
                 });
+
                 add_pl_menu.show(300);
                 sc_connect.hide();
-                fUtils.getPlayLists();
-                fUtils.getCurrentList();
+                fUtils.getPlayLists(); // Getting playlists and tracks from the local storage
+                fUtils.getCurrentList(); // Getting currently selected playlist (Is set in fUtils.refreshList() && fUtils.addPlayList() methods)
 
                 //Adding new playlist
                 add_pl_b.click(function () {
