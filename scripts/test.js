@@ -319,39 +319,75 @@ var fUtils = {
             setTimeout(fUtils.closeTrackFromSC, 100);
         }
     },
+    preparePlayground: function(){
+        //vars
+        var sc_connect = $(fUtils.settings.selectors.sc_connect);
+        var add_pl_b = $(fUtils.settings.selectors.add_pl_b);
+        var add_pl_menu = $(fUtils.settings.selectors.add_pl_menu);
+        add_pl_menu.show(300);
+        sc_connect.hide();
+        fUtils.getPlayLists(); // Getting playlists and tracks from the local storage
+        fUtils.getCurrentList(); // Getting currently selected playlist (Is set in fUtils.refreshList() && fUtils.addPlayList() methods)
+
+        //Adding new playlist
+        add_pl_b.click(function () {
+            fUtils.addPlayList();
+        });
+    },
+    setCookie: function (name, value, expires, path, domain, secure) {
+        var today = new Date();
+        today.setTime(today.getTime());
+        if (expires) {
+            expires = expires * 1000 * 60 * 60 * 24;
+        }
+        var expires_date = new Date(today.getTime() + (expires));
+        document.cookie = name + '=' + escape(value) +
+            ( ( expires ) ? ';expires=' + expires_date.toGMTString() : '' ) + //expires.toGMTString()
+            ( ( path ) ? ';path=' + path : '' ) +
+            ( ( domain ) ? ';domain=' + domain : '' ) +
+            ( ( secure ) ? ';secure' : '' );
+    },
+    getCookie: function (name) {
+        var nameEQ = name + "=";
+        var ca = document.cookie.split(';');
+        for (var i = 0; i < ca.length; i++) {
+            var c = ca[i];
+            while (c.charAt(0) == ' ') c = c.substring(1, c.length);
+            if (c.indexOf(nameEQ) == 0) return c.substring(nameEQ.length, c.length);
+        }
+        return null;
+    },
     /* INIT PROJECT */
     init: function () {
         //Vars
         var sc_connect = $(fUtils.settings.selectors.sc_connect);
-        var add_pl_b = $(fUtils.settings.selectors.add_pl_b);
-        var add_pl_menu = $(fUtils.settings.selectors.add_pl_menu);
+        var userId = fUtils.getCookie('scUserId') || '';
 
-        // Connect with SC
-        sc_connect.on('click', function(){
-            // initialize client with app credentials
-            SC.initialize({
-                client_id: 'fe5ad72e49de9b2b837438dc67909340',
-                redirect_uri: 'http://klip.grm.im/git/SCoembedApi.git/',
-                scope: 'non-expiring'
-            });
-
-        // initiate auth popup
-            SC.connect(function() {
-                SC.get('/me', function(me) {
-                    $('h1').html(me.username+'\'s playground');
+        if (userId == '') {
+            // Connect with SC
+            sc_connect.on('click', function () {
+                // initialize client with app credentials
+                SC.initialize({
+                    client_id: 'fe5ad72e49de9b2b837438dc67909340',
+                    redirect_uri: 'http://klip.grm.im/git/SCoembedApi.git/',
+                    scope: 'non-expiring'
                 });
-
-                add_pl_menu.show(300);
-                sc_connect.hide();
-                fUtils.getPlayLists(); // Getting playlists and tracks from the local storage
-                fUtils.getCurrentList(); // Getting currently selected playlist (Is set in fUtils.refreshList() && fUtils.addPlayList() methods)
-
-                //Adding new playlist
-                add_pl_b.click(function () {
-                    fUtils.addPlayList();
+                // initiate auth popup
+                SC.connect(function () {
+                    SC.get('/me', function (me) {
+                        fUtils.setCookie('scUserId', me.id);
+                        $('h1').html(me.username + '\'s playground');
+                        fUtils.preparePlayground();
+                    });
                 });
             });
-        });
+        } else {
+            SC.get('/me', function (me) {
+                fUtils.setCookie('scUserId', me.id);
+                $('h1').html(me.username + '\'s playground');
+                fUtils.preparePlayground();
+            });
+        }
     }/* END INIT PROJECT */
 };
 $(document).ready(function () {
