@@ -45,7 +45,8 @@
                     window.parent.location.hash = "close_child";
                 });
             }else{
-                $(_f).remove('select').append('<p>You have no playlists.</p>');
+                $('select',_f).remove();
+                $(_f).prepend('<label for="sc-button">You have no playlists.</label>');
             }
         } //END Getting playlists and tracks from the local storage
     };
