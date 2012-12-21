@@ -259,8 +259,8 @@ var fUtils = {
     removeTrack:function(_id){
         var removeT = parseInt(_id);
         var _pl = $(fUtils.settings.selectors.pl_title).text();
-        var _trackCont = _id.closest('ul');
-        var _plEmpty = $(fUtils.settings.selectors.pl_empty);
+        //var _trackCont = _id.closest('ul');
+        //var _plEmpty = $(fUtils.settings.selectors.pl_empty);
 
         fUtils.settings.playLists[_pl].tracks.splice(removeT,1); // Remove track from local playlists obj
         fUtils.refreshTracks(_pl);
