@@ -206,7 +206,7 @@ var fUtils = {
 
         if(fUtils.settings.playLists[_playlist].tracks.length>0){
             var _height = tracks_list.height();
-            tracks_list.html('').css('height',_height).append(pl_empty).css('height', 'auto');
+            tracks_list.css('height',_height).html('').append(pl_empty).css('height', 'auto');
             pl_empty.hide();
             for (var t in fUtils.settings.playLists[_playlist].tracks) {
                 if (fUtils.settings.playLists[_playlist].tracks.hasOwnProperty(t)) {
