@@ -220,9 +220,8 @@ var fUtils = {
     pushTrack:function(_track, _id){
         //var $track = $(_track);
         var tracks_list = $(fUtils.settings.selectors.tracks_list);
-
+        var $track;
         var trackId = 'track'+_id;
-        //$track.attr('id', trackId);
 
         /* Adding new track to DOM */
         var track = document.createElement('li');
@@ -231,9 +230,11 @@ var fUtils = {
 
         var track_url = _track;
 
-        SC.oEmbed(track_url, { auto_play: true }, function(oEmbed) {
-          //console.log('oEmbed response: ' + oEmbed);
-            $('dd',track).append(oEmbed);
+        SC.oEmbed(track_url, { auto_play: false }, function(oEmbed) {
+            $track = $(oEmbed.html);
+
+            $track.attr('id', trackId);
+            $('dd',track).append($track);
         });
 
         tracks_list.prepend(track);
@@ -243,7 +244,7 @@ var fUtils = {
             fUtils.removeTrack(_obj);
         });
 
-        /*oEmbed.load(function(){ //setting auto play for next track
+        $track.load(function(){ //setting auto play for next track
             var nextTrack = (typeof window['track'+(_id-1)] != 'undefined')?window['track'+(_id-1)]:false;
             window[trackId] = new SC.Widget(trackId);
             window[trackId].bind(SC.Widget.Events.FINISH, function(){
@@ -252,7 +253,7 @@ var fUtils = {
                 }
             });
 
-        });*/
+        });
     }, // END Adding new track to playlist and setting auto play for next track */
 
     /* Removing track from currently selected playlist */
