@@ -78,6 +78,8 @@ var fUtils = {
         var add_chk_b = $(fUtils.settings.selectors.add_chk_b);
         var playlist = $(fUtils.settings.selectors.playlist);
 
+        fUtils.getPlayLists();
+
         var _pl_HTML = '<ul id="pl_list">';
 
         for (var p in fUtils.settings.playLists) {
