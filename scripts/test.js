@@ -265,7 +265,7 @@ var fUtils = {
 
         SC.get('/resolve', {url:track_url}, function(resolve){
             console.log(resolve);
-            $track= '<iframe width="100%" height="166" scrolling="no" frameborder="no" src="https://w.soundcloud.com/player/?url='+resolve.location.replace('.json','')+'"></iframe>';
+            $track= $('<iframe width="100%" height="166" scrolling="no" frameborder="no" src="https://w.soundcloud.com/player/?url='+resolve.location.replace('.json','')+'"></iframe>');
         });
 
         $track.attr('id', trackId);
@@ -370,7 +370,6 @@ var fUtils = {
                     // initiate auth popup
                     SC.connect(function() {
                         SC.get('/me', function(me) {
-                            console.log(me);
                             $('h1').html(me.username+'\'s playground');
                         });
 
