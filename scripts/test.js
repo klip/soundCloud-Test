@@ -213,6 +213,8 @@ var fUtils = {
                     fUtils.pushTrack(fUtils.settings.playLists[_playlist].tracks[t], t);
                 }
             }
+        }else{
+            pl_empty.show().siblings().remove();
         }
     },// END Refreshing tracklist in currently selected playlist
 
