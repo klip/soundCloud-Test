@@ -363,7 +363,7 @@ var fUtils = {
             });
             // Connect with SC
 
-            if(fUtils.getCookie('_soundcloud_session')==null || fUtils.getCookie('_soundcloud_session')==''){
+            if(fUtils.getCookie('_scAuth')==null || fUtils.getCookie('_scAuth')==''){
                 sc_connect.on('click', function(){
                     // initialize client with app credentials
 
@@ -372,6 +372,8 @@ var fUtils = {
                         SC.get('/me', function(me) {
                             $('h1').html(me.username+'\'s playground');
                         });
+
+                        fUtils.setCookie('_scAuth', 1);
 
                         add_pl_menu.show(300);
                         sc_connect.hide();
