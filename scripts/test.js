@@ -229,9 +229,13 @@ var fUtils = {
         $(track).append('<dl class="clearfix"></dl>');
         $('dl',track).append('<dt class="remove" data-track="'+_id+'">-</dt>').append('<dd></dd>');
 
-        //SC oEmbed
-        SC.oEmbed(track_url, { auto_play: false }, function(oEmbed) {
-            $track = $(oEmbed.html);
+        SC.initialize({
+            client_id: 'fe5ad72e49de9b2b837438dc67909340'
+        });
+
+        //SC get track
+        SC.get('/resolve', {url:track_url}, function(resolve){
+            $track= $('<iframe width="100%" height="166" scrolling="no" frameborder="no" src="https://w.soundcloud.com/player/?url='+resolve.uri+'"></iframe>');
             $track.attr('id', trackId);
             $('dd',track).append($track);
             tracks_list.prepend(track);
@@ -253,6 +257,8 @@ var fUtils = {
                 });
             });
         });
+
+
     }, // END Adding new track to playlist and setting auto play for next track */
 
     /* Removing track from currently selected playlist */
@@ -264,34 +270,6 @@ var fUtils = {
 
         fUtils.settings.playLists[_pl].tracks.splice(removeT,1); // Remove track from local playlists obj
         fUtils.refreshTracks(_pl);
-        /* Remove track from DOM */
-        /*delete window['track'+removeT];
-        _id.parent().parent().remove();*/
-
-        /* Rebind FINISH events for next track after DOM removals */
-        /*$('li', _trackCont).each(function(e){
-            var _this = $(this);
-            var _trackId = _this.find('iframe').attr('id');
-
-            var nextTrackId = _this.next().find('iframe').attr('id');
-            var nextTrack = (typeof window[nextTrackId] != 'undefined')?window[nextTrackId]:false;
-
-            if(typeof window[_trackId] != 'undefined'){
-                window[_trackId].unbind(SC.Widget.Events.FINISH);
-                window[_trackId].bind(SC.Widget.Events.FINISH, function(){
-                    if(nextTrack!=false){
-                        nextTrack.play();
-                    }
-                });
-            }
-
-            *//* Showing the "No tracks" text again*//*
-           if (_plEmpty.siblings().length<1){
-               _plEmpty.show();
-           }
-
-            fUtils.setPlaylists();
-        });*/
     },// END Removing track from currently selected playlist
 
     /* Delete playlist  */
@@ -302,15 +280,31 @@ var fUtils = {
 
     addTrackFromSC: function () {
         var w_code = window.location.href;
-        $("body").append("<iframe width='280' height='45' frameBorder='0'  id='"+fUtils.settings.selectors.remoteSCIframe.replace("#","")+"' src='http://klip.grm.im/git/SCoembedApi.git/addFromSC.html#"+w_code+"' style='background: #ffffff;border-radius: 6px;border:1px solid #CCCCCC;box-shadow: 0px 0px 6px rgba(0, 0, 0, 0.3);display:none;position:absolute;z-index:1000;right:100px;top:10px;width:280px;border-radius:6px;'></iframe>");
+        $("body").append("<div style='display:none;position:absolute;z-index:1000;right:100px;top:10px;width:282px;height:47px;' id='"+fUtils.settings.selectors.remoteSCIframe.replace("#","")+"'><iframe width='280' height='49' frameBorder='0' src='http://klip.grm.im/git/SCoembedApi.git/addFromSC.html#"+w_code+"' style='background: #ffffff;border-radius: 6px;border:1px solid #CCCCCC;box-shadow: 0px 0px 6px rgba(0, 0, 0, 0.3);border-radius:6px;'></iframe><span class='closeFrame sc-button' style='border-radius: 50% 50% 50% 50%;"
+        +"display: block;"
+        +"font-size: 19px;"
+        +"height: 20px;"
+        +"line-height: 1.4;"
+        +"overflow: hidden;"
+        +"padding: 0;"
+        +"position: absolute;"
+        +"right: -10px;"
+        +"text-align: center;"
+        +"top: -8px;"
+        +"width: 20px;'>˟</span></div>");
         var _form = $(fUtils.settings.selectors.remoteSCIframe);
         _form.fadeIn(300);
         fUtils.closeTrackFromSC();
     },
     closeTrackFromSC: function () {
+        var _iframe = $(fUtils.settings.selectors.remoteSCIframe);
+        $('.closeFrame', _iframe).on('click',function(){
+            _iframe.fadeOut(300, function () {
+                $(this).remove();
+            });
+        });
         if (window.location.hash == "#close_child") {
             window.location.hash = '';
-            var _iframe = $(fUtils.settings.selectors.remoteSCIframe);
             _iframe.fadeOut(300, function () {
                 $(this).remove();
             });
@@ -325,21 +319,23 @@ var fUtils = {
             var sc_connect = $(fUtils.settings.selectors.sc_connect);
             var add_pl_b = $(fUtils.settings.selectors.add_pl_b);
             var add_pl_menu = $(fUtils.settings.selectors.add_pl_menu);
-
+            SC.initialize({
+                client_id: 'fe5ad72e49de9b2b837438dc67909340',
+                redirect_uri: 'http://klip.grm.im/git/SCoembedApi.git/',
+                scope: 'non-expiring'
+            });
             // Connect with SC
+
             sc_connect.on('click', function(){
                 // initialize client with app credentials
-                SC.initialize({
-                    client_id: 'fe5ad72e49de9b2b837438dc67909340',
-                    redirect_uri: 'http://klip.grm.im/git/SCoembedApi.git/',
-                    scope: 'non-expiring'
-                });
 
-            // initiate auth popup
+                // initiate auth popup
                 SC.connect(function() {
                     SC.get('/me', function(me) {
                         $('h1').html(me.username+'\'s playground');
                     });
+
+                    //fUtils.setCookie('_scAuth', 1);
 
                     add_pl_menu.show(300);
                     sc_connect.hide();
@@ -352,6 +348,8 @@ var fUtils = {
                     });
                 });
             });
+
+
         }/* END INIT PROJECT */
 };
 $(document).ready(function () {
