@@ -265,28 +265,29 @@ var fUtils = {
 
         SC.get('/resolve', {url:track_url}, function(resolve){
             $track= $('<iframe width="100%" height="166" scrolling="no" frameborder="no" src="https://w.soundcloud.com/player/?url='+resolve.uri+'"></iframe>');
-        });
+            $track.attr('id', trackId);
+            $('dd',track).append($track);
+            tracks_list.prepend(track);
 
-        $track.attr('id', trackId);
-        $('dd',track).append($track);
-        tracks_list.prepend(track);
+            //Removing tracks from playlist
+            $('.remove', track).click(function (e) {
+                var _id = $(this).attr('data-track');
+                fUtils.removeTrack(_id);
+            });
 
-        //Removing tracks from playlist
-        $('.remove', track).click(function (e) {
-            var _id = $(this).attr('data-track');
-            fUtils.removeTrack(_id);
-        });
-
-        //setting auto play for next track
-        $track.load(function () {
-            var nextTrack = (typeof window['track' + (_id - 1)] != 'undefined') ? window['track' + (_id - 1)] : false;
-            window[trackId] = new SC.Widget(trackId);
-            window[trackId].bind(SC.Widget.Events.FINISH, function () {
-                if (nextTrack != false) {
-                    nextTrack.play();
-                }
+            //setting auto play for next track
+            $track.load(function () {
+                var nextTrack = (typeof window['track' + (_id - 1)] != 'undefined') ? window['track' + (_id - 1)] : false;
+                window[trackId] = new SC.Widget(trackId);
+                window[trackId].bind(SC.Widget.Events.FINISH, function () {
+                    if (nextTrack != false) {
+                        nextTrack.play();
+                    }
+                });
             });
         });
+
+
     }, // END Adding new track to playlist and setting auto play for next track */
 
     /* Removing track from currently selected playlist */
