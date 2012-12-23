@@ -193,9 +193,9 @@ var fUtils = {
                 return;
             }
             fUtils.settings.playLists[_playlist].tracks.push(t_field_val);
-            fUtils.refreshTracks(_playlist);
             t_field.val('');
             fUtils.setPlaylists();
+            fUtils.refreshTracks(_playlist);
         });
     },// END Open add tracks to playlist dialog
 
