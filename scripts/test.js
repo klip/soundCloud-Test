@@ -231,12 +231,18 @@ var fUtils = {
 
         //SC oEmbed
         SC.oEmbed(track_url, { auto_play: false }, function(oEmbed) {
-
             console.log(oEmbed);
-            $track = $(oEmbed.html);
-            $track.attr('id', trackId);
-            $('dd',track).append($track);
-            tracks_list.prepend(track);
+            if(oEmbed != null && typeof oEmbed !='null'){
+                $track = $(oEmbed.html);
+                $track.attr('id', trackId);
+                $('dd',track).append($track);
+                tracks_list.prepend(track);
+            }else{
+                SC.get('/resolve', function(resolve){
+                    console.log(resolve);
+                });
+            }
+
 
             //Removing tracks from playlist
             $('.remove', track).click(function (e) {
