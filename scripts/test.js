@@ -103,8 +103,8 @@ var fUtils = {
             _pl.addClass('hidden');
             add_chk_b.attr('checked', 'checked');
             $(this).addClass('selected').siblings().removeClass('selected');
-            fUtils.addTracks(plTitle.text());
             localStorage.setItem('sc_current',plTitle.text());
+            fUtils.addTracks(plTitle.text());
         });
 
         $('dd', _all_lists).on('click', function (e) {
