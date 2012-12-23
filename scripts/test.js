@@ -78,8 +78,6 @@ var fUtils = {
         var add_chk_b = $(fUtils.settings.selectors.add_chk_b);
         var playlist = $(fUtils.settings.selectors.playlist);
 
-        fUtils.getPlayLists();
-
         var _pl_HTML = '<ul id="pl_list">';
 
         for (var p in fUtils.settings.playLists) {
@@ -205,7 +203,7 @@ var fUtils = {
     refreshTracks:function(_playlist){
         var pl_empty = $(fUtils.settings.selectors.pl_empty);
         var tracks_list = $(fUtils.settings.selectors.tracks_list);
-
+        fUtils.getPlayLists();
         if(fUtils.settings.playLists[_playlist].tracks.length>0){
             var _height = tracks_list.height();
             tracks_list.css('height',_height).html('').append(pl_empty).css('height', 'auto');
