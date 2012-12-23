@@ -267,7 +267,7 @@ var fUtils = {
 
     /* Removing track from currently selected playlist */
     removeTrack:function(_id){
-        var removeT = parseInt(_id)-1;
+        var removeT = parseInt(_id);
         var _pl = $(fUtils.settings.selectors.pl_title).text();
         //var _trackCont = _id.closest('ul');
         //var _plEmpty = $(fUtils.settings.selectors.pl_empty);
