@@ -104,6 +104,7 @@ var fUtils = {
             add_chk_b.attr('checked', 'checked');
             $(this).addClass('selected').siblings().removeClass('selected');
             localStorage.setItem('sc_current',plTitle.text());
+            fUtils.getPlayLists();
             fUtils.addTracks(plTitle.text());
         });
 
@@ -204,7 +205,6 @@ var fUtils = {
     refreshTracks:function(_playlist){
         var pl_empty = $(fUtils.settings.selectors.pl_empty);
         var tracks_list = $(fUtils.settings.selectors.tracks_list);
-        fUtils.setPlaylists();
         fUtils.getPlayLists();
         if(fUtils.settings.playLists[_playlist].tracks.length>0){
             var _height = tracks_list.height();
@@ -273,7 +273,7 @@ var fUtils = {
         //var _plEmpty = $(fUtils.settings.selectors.pl_empty);
 
         fUtils.settings.playLists[_pl].tracks.splice(removeT,1); // Remove track from local playlists obj
-
+        fUtils.setPlaylists();
         fUtils.refreshTracks(_pl);
     },// END Removing track from currently selected playlist
 
