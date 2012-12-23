@@ -363,44 +363,29 @@ var fUtils = {
             });
             // Connect with SC
 
-            if(fUtils.getCookie('_scAuth')==null || fUtils.getCookie('_scAuth')==''){
-                sc_connect.on('click', function(){
-                    // initialize client with app credentials
+            sc_connect.on('click', function(){
+                // initialize client with app credentials
 
-                    // initiate auth popup
-                    SC.connect(function() {
-                        SC.get('/me', function(me) {
-                            $('h1').html(me.username+'\'s playground');
-                        });
+                // initiate auth popup
+                SC.connect(function() {
+                    SC.get('/me', function(me) {
+                        $('h1').html(me.username+'\'s playground');
+                    });
 
-                        //fUtils.setCookie('_scAuth', 1);
+                    //fUtils.setCookie('_scAuth', 1);
 
-                        add_pl_menu.show(300);
-                        sc_connect.hide();
-                        fUtils.getPlayLists(); // Getting playlists and tracks from the local storage
-                        fUtils.getCurrentList(); // Getting currently selected playlist (Is set in fUtils.refreshList() && fUtils.addPlayList() methods)
+                    add_pl_menu.show(300);
+                    sc_connect.hide();
+                    fUtils.getPlayLists(); // Getting playlists and tracks from the local storage
+                    fUtils.getCurrentList(); // Getting currently selected playlist (Is set in fUtils.refreshList() && fUtils.addPlayList() methods)
 
-                        //Adding new playlist
-                        add_pl_b.click(function () {
-                            fUtils.addPlayList();
-                        });
+                    //Adding new playlist
+                    add_pl_b.click(function () {
+                        fUtils.addPlayList();
                     });
                 });
-            }else{
-                SC.get('/me', function(me) {
-                    $('h1').html(me.username+'\'s playground');
-                });
+            });
 
-                add_pl_menu.show(300);
-                sc_connect.hide();
-                fUtils.getPlayLists(); // Getting playlists and tracks from the local storage
-                fUtils.getCurrentList(); // Getting currently selected playlist (Is set in fUtils.refreshList() && fUtils.addPlayList() methods)
-
-                //Adding new playlist
-                add_pl_b.click(function () {
-                    fUtils.addPlayList();
-                });
-            }
 
         }/* END INIT PROJECT */
 };
