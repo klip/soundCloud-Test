@@ -42,7 +42,7 @@
                     SCUtils.settings.playLists[_pl].tracks.push(_track);
                     var json_data = JSON.stringify(SCUtils.settings.playLists);
                     localStorage.setItem('sc_playlists', json_data);
-                    _f.html('<p style="margin-top:8px;">Done</p>');
+                    _f.html('<p style="margin:8px 0;">Done</p>');
                     window.parent.location.hash = "close_child";
                 });
             }else{
