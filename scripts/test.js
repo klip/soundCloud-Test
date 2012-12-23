@@ -229,16 +229,18 @@ var fUtils = {
         $(track).append('<dl class="clearfix"></dl>');
         $('dl',track).append('<dt class="remove" data-track="'+_id+'">-</dt>').append('<dd></dd>');
 
+        SC.initialize({
+            client_id: 'fe5ad72e49de9b2b837438dc67909340'
+        });
         //SC oEmbed
         SC.oEmbed(track_url, { auto_play: false }, function(oEmbed) {
-            console.log(oEmbed);
             if(oEmbed != null && typeof oEmbed !='null'){
                 $track = $(oEmbed.html);
                 $track.attr('id', trackId);
                 $('dd',track).append($track);
                 tracks_list.prepend(track);
             }else{
-                SC.get('/resolve', function(resolve){
+                SC.get('/resolve', {url:track_url}, function(resolve){
                     console.log(resolve);
                 });
             }
