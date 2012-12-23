@@ -373,7 +373,7 @@ var fUtils = {
                             $('h1').html(me.username+'\'s playground');
                         });
 
-                        fUtils.setCookie('_scAuth', 1);
+                        //fUtils.setCookie('_scAuth', 1);
 
                         add_pl_menu.show(300);
                         sc_connect.hide();
