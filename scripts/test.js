@@ -188,7 +188,7 @@ var fUtils = {
             e.preventDefault();
             var t_field = $(fUtils.settings.selectors.add_tr_value, add_tr_f);
             var t_field_val = t_field.val();
-            if(t_field_val.indexOf('soundcloud.com')<0&&t_field_val.indexOf('http')<0){
+            if(t_field_val.indexOf('soundcloud.com')==-1 && t_field_val.indexOf('http')==-1){
                 t_field.addClass('error').val('Not a SoundCloud URL').focus(function(){$(this).removeClass('error').val('')});
                 return;
             }
