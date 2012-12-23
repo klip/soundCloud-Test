@@ -231,6 +231,8 @@ var fUtils = {
 
         //SC oEmbed
         SC.oEmbed(track_url, { auto_play: false }, function(oEmbed) {
+
+            console.log(oEmbed);
             $track = $(oEmbed.html);
             $track.attr('id', trackId);
             $('dd',track).append($track);
@@ -264,34 +266,6 @@ var fUtils = {
 
         fUtils.settings.playLists[_pl].tracks.splice(removeT,1); // Remove track from local playlists obj
         fUtils.refreshTracks(_pl);
-        /* Remove track from DOM */
-        /*delete window['track'+removeT];
-        _id.parent().parent().remove();*/
-
-        /* Rebind FINISH events for next track after DOM removals */
-        /*$('li', _trackCont).each(function(e){
-            var _this = $(this);
-            var _trackId = _this.find('iframe').attr('id');
-
-            var nextTrackId = _this.next().find('iframe').attr('id');
-            var nextTrack = (typeof window[nextTrackId] != 'undefined')?window[nextTrackId]:false;
-
-            if(typeof window[_trackId] != 'undefined'){
-                window[_trackId].unbind(SC.Widget.Events.FINISH);
-                window[_trackId].bind(SC.Widget.Events.FINISH, function(){
-                    if(nextTrack!=false){
-                        nextTrack.play();
-                    }
-                });
-            }
-
-            *//* Showing the "No tracks" text again*//*
-           if (_plEmpty.siblings().length<1){
-               _plEmpty.show();
-           }
-
-            fUtils.setPlaylists();
-        });*/
     },// END Removing track from currently selected playlist
 
     /* Delete playlist  */
@@ -302,7 +276,7 @@ var fUtils = {
 
     addTrackFromSC: function () {
         var w_code = window.location.href;
-        $("body").append("<iframe width='280' height='45' frameBorder='0'  id='"+fUtils.settings.selectors.remoteSCIframe.replace("#","")+"' src='http://klip.grm.im/git/SCoembedApi.git/addFromSC.html#"+w_code+"' style='background: #ffffff;border-radius: 6px;border:1px solid #CCCCCC;box-shadow: 0px 0px 6px rgba(0, 0, 0, 0.3);display:none;position:absolute;z-index:1000;right:100px;top:10px;width:280px;border-radius:6px;'></iframe>");
+        $("body").append("<iframe width='280' height='45' frameBorder='0'  id='"+fUtils.settings.selectors.remoteSCIframe.replace("#","")+"' src='https://klip.grm.im/git/SCoembedApi.git/addFromSC.html#"+w_code+"' style='background: #ffffff;border-radius: 6px;border:1px solid #CCCCCC;box-shadow: 0px 0px 6px rgba(0, 0, 0, 0.3);display:none;position:absolute;z-index:1000;right:100px;top:10px;width:280px;border-radius:6px;'></iframe>");
         var _form = $(fUtils.settings.selectors.remoteSCIframe);
         _form.fadeIn(300);
         fUtils.closeTrackFromSC();
