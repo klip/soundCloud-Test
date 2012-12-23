@@ -308,6 +308,7 @@ var fUtils = {
             var add_pl_b = $(fUtils.settings.selectors.add_pl_b);
             var add_pl_menu = $(fUtils.settings.selectors.add_pl_menu);
             var add_tr_f = $(fUtils.settings.selectors.add_tr_f);
+            var _playlist = $(fUtils.settings.selectors.pl_big_title).text();
             SC.initialize({
                 client_id: 'fe5ad72e49de9b2b837438dc67909340',
                 redirect_uri: 'http://klip.grm.im/git/SCoembedApi.git/',
