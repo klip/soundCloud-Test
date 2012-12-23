@@ -233,18 +233,17 @@ var fUtils = {
             client_id: 'fe5ad72e49de9b2b837438dc67909340'
         });
         //SC oEmbed
-        SC.oEmbed(track_url, { auto_play: false }, function(oEmbed) {
+        /*SC.oEmbed(track_url, { auto_play: false }, function(oEmbed) {
             if(oEmbed != null && typeof oEmbed !='null'){
                 $track = $(oEmbed.html);
-                $track.attr('id', trackId);
-                $('dd',track).append($track);
-                tracks_list.prepend(track);
             }else{
                 SC.get('/resolve', {url:track_url}, function(resolve){
-                    console.log(resolve);
+                    $track= '<iframe width="100%" height="166" scrolling="no" frameborder="no" src="https://w.soundcloud.com/player/?url='+resolve.location.replace('.json','')+'"></iframe>';
                 });
             }
-
+            $track.attr('id', trackId);
+            $('dd',track).append($track);
+            tracks_list.prepend(track);
 
             //Removing tracks from playlist
             $('.remove', track).click(function (e) {
@@ -261,6 +260,31 @@ var fUtils = {
                         nextTrack.play();
                     }
                 });
+            });
+        });*/
+
+        SC.get('/resolve', {url:track_url}, function(resolve){
+            $track= '<iframe width="100%" height="166" scrolling="no" frameborder="no" src="https://w.soundcloud.com/player/?url='+resolve.location.replace('.json','')+'"></iframe>';
+        });
+
+        $track.attr('id', trackId);
+        $('dd',track).append($track);
+        tracks_list.prepend(track);
+
+        //Removing tracks from playlist
+        $('.remove', track).click(function (e) {
+            var _id = $(this).attr('data-track');
+            fUtils.removeTrack(_id);
+        });
+
+        //setting auto play for next track
+        $track.load(function () {
+            var nextTrack = (typeof window['track' + (_id - 1)] != 'undefined') ? window['track' + (_id - 1)] : false;
+            window[trackId] = new SC.Widget(trackId);
+            window[trackId].bind(SC.Widget.Events.FINISH, function () {
+                if (nextTrack != false) {
+                    nextTrack.play();
+                }
             });
         });
     }, // END Adding new track to playlist and setting auto play for next track */
@@ -345,6 +369,7 @@ var fUtils = {
                     // initiate auth popup
                     SC.connect(function() {
                         SC.get('/me', function(me) {
+                            console.log(me);
                             $('h1').html(me.username+'\'s playground');
                         });
 
