@@ -232,37 +232,8 @@ var fUtils = {
         SC.initialize({
             client_id: 'fe5ad72e49de9b2b837438dc67909340'
         });
-        //SC oEmbed
-        /*SC.oEmbed(track_url, { auto_play: false }, function(oEmbed) {
-            if(oEmbed != null && typeof oEmbed !='null'){
-                $track = $(oEmbed.html);
-            }else{
-                SC.get('/resolve', {url:track_url}, function(resolve){
-                    $track= '<iframe width="100%" height="166" scrolling="no" frameborder="no" src="https://w.soundcloud.com/player/?url='+resolve.location.replace('.json','')+'"></iframe>';
-                });
-            }
-            $track.attr('id', trackId);
-            $('dd',track).append($track);
-            tracks_list.prepend(track);
 
-            //Removing tracks from playlist
-            $('.remove', track).click(function (e) {
-                var _id = $(this).attr('data-track');
-                fUtils.removeTrack(_id);
-            });
-
-            //setting auto play for next track
-            $track.load(function () {
-                var nextTrack = (typeof window['track' + (_id - 1)] != 'undefined') ? window['track' + (_id - 1)] : false;
-                window[trackId] = new SC.Widget(trackId);
-                window[trackId].bind(SC.Widget.Events.FINISH, function () {
-                    if (nextTrack != false) {
-                        nextTrack.play();
-                    }
-                });
-            });
-        });*/
-
+        //SC get track
         SC.get('/resolve', {url:track_url}, function(resolve){
             $track= $('<iframe width="100%" height="166" scrolling="no" frameborder="no" src="https://w.soundcloud.com/player/?url='+resolve.uri+'"></iframe>');
             $track.attr('id', trackId);
@@ -309,7 +280,7 @@ var fUtils = {
 
     addTrackFromSC: function () {
         var w_code = window.location.href;
-        $("body").append("<div style='display:none;position:absolute;z-index:1000;right:100px;top:10px;width:282px;height:47px;overflow:hidden;' id='"+fUtils.settings.selectors.remoteSCIframe.replace("#","")+"'><iframe width='280' height='45' frameBorder='0' src='http://klip.grm.im/git/SCoembedApi.git/addFromSC.html#"+w_code+"' style='background: #ffffff;border-radius: 6px;border:1px solid #CCCCCC;box-shadow: 0px 0px 6px rgba(0, 0, 0, 0.3);border-radius:6px;'></iframe><span class='closeFrame sc-button' style='position:absolute;right-5px;top:-5px;'>Close</span></div>");
+        $("body").append("<div style='display:none;position:absolute;z-index:1000;right:100px;top:10px;width:282px;height:47px;' id='"+fUtils.settings.selectors.remoteSCIframe.replace("#","")+"'><iframe width='280' height='45' frameBorder='0' src='http://klip.grm.im/git/SCoembedApi.git/addFromSC.html#"+w_code+"' style='background: #ffffff;border-radius: 6px;border:1px solid #CCCCCC;box-shadow: 0px 0px 6px rgba(0, 0, 0, 0.3);border-radius:6px;'></iframe><span class='closeFrame sc-button' style='position:absolute;right:-35px;top:-5px;'>˟</span></div>");
         var _form = $(fUtils.settings.selectors.remoteSCIframe);
         _form.fadeIn(300);
         fUtils.closeTrackFromSC();
