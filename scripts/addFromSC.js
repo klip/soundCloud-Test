@@ -43,6 +43,7 @@
                     var json_data = JSON.stringify(SCUtils.settings.playLists);
                     localStorage.setItem('sc_playlists', json_data);
                     window.parent.location.hash = "close_child";
+                    $(this).html('Done');
                 });
             }else{
                 $('select',_f).remove();
