@@ -527,6 +527,7 @@ END CSS reset ------------------------------------------------------------------
 
 #tracks li{
     margin-bottom: 24px;
+    background: url("images/ajax-loader.gif") no-repeat center center;
 }
 #tracks li .remove{
     background: #f2f5f6;
