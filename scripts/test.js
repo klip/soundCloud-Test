@@ -184,7 +184,8 @@ var fUtils = {
 
         fUtils.refreshTracks(_playlist);
         /* Prepare DOM for new track, adding new track to local playlists' obj and refreshing the tracks list in playlist  */
-        add_tr_f.submit(function (e) {
+        add_tr_f.off('submit');
+        add_tr_f.on('submit',function (e) {
             e.preventDefault();
             var t_field = $(fUtils.settings.selectors.add_tr_value, add_tr_f);
             var t_field_val = t_field.val();
