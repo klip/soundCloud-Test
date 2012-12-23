@@ -174,7 +174,6 @@ var fUtils = {
         var pl_description = $(fUtils.settings.selectors.pl_description);
         var tracks_list = $(fUtils.settings.selectors.tracks_list);
         var pl_empty = $(fUtils.settings.selectors.pl_empty);
-        var add_tr_f = $(fUtils.settings.selectors.add_tr_f);
 
         pl_title.html(_playlist); //Setting the name of the current playlist
         pl_description.html(fUtils.settings.playLists[_playlist].description); //Setting the playlist's descr
@@ -183,20 +182,7 @@ var fUtils = {
         $('.txt', _plEdit).removeClass('error');
 
         fUtils.refreshTracks(_playlist);
-        /* Prepare DOM for new track, adding new track to local playlists' obj and refreshing the tracks list in playlist  */
-        add_tr_f.unbind('submit').submit(function (e) {
-            e.preventDefault();
-            var t_field = $(fUtils.settings.selectors.add_tr_value, add_tr_f);
-            var t_field_val = t_field.val();
-            if(t_field_val.indexOf('soundcloud.com')<0&&t_field_val.indexOf('http')<0){
-                t_field.addClass('error').val('Not a SoundCloud URL').focus(function(){$(this).removeClass('error').val('')});
-                return;
-            }
-            fUtils.settings.playLists[_playlist].tracks.push(t_field_val);
-            fUtils.refreshTracks(_playlist);
-            t_field.val('');
-            fUtils.setPlaylists();
-        });
+
     },// END Open add tracks to playlist dialog
 
     /* Refreshing tracklist in currently selected playlist */
@@ -321,6 +307,7 @@ var fUtils = {
             var sc_connect = $(fUtils.settings.selectors.sc_connect);
             var add_pl_b = $(fUtils.settings.selectors.add_pl_b);
             var add_pl_menu = $(fUtils.settings.selectors.add_pl_menu);
+            var add_tr_f = $(fUtils.settings.selectors.add_tr_f);
             SC.initialize({
                 client_id: 'fe5ad72e49de9b2b837438dc67909340',
                 redirect_uri: 'http://klip.grm.im/git/SCoembedApi.git/',
@@ -347,6 +334,21 @@ var fUtils = {
                     //Adding new playlist
                     add_pl_b.click(function () {
                         fUtils.addPlayList();
+                    });
+
+                    /* Prepare DOM for new track, adding new track to local playlists' obj and refreshing the tracks list in playlist  */
+                    add_tr_f.submit(function (e) {
+                        e.preventDefault();
+                        var t_field = $(fUtils.settings.selectors.add_tr_value, add_tr_f);
+                        var t_field_val = t_field.val();
+                        if(t_field_val.indexOf('soundcloud.com')<0&&t_field_val.indexOf('http')<0){
+                            t_field.addClass('error').val('Not a SoundCloud URL').focus(function(){$(this).removeClass('error').val('')});
+                            return;
+                        }
+                        fUtils.settings.playLists[_playlist].tracks.push(t_field_val);
+                        fUtils.refreshTracks(_playlist);
+                        t_field.val('');
+                        fUtils.setPlaylists();
                     });
                 });
             });
