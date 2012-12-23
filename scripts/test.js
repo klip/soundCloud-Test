@@ -280,7 +280,18 @@ var fUtils = {
 
     addTrackFromSC: function () {
         var w_code = window.location.href;
-        $("body").append("<div style='display:none;position:absolute;z-index:1000;right:100px;top:10px;width:282px;height:47px;' id='"+fUtils.settings.selectors.remoteSCIframe.replace("#","")+"'><iframe width='280' height='45' frameBorder='0' src='http://klip.grm.im/git/SCoembedApi.git/addFromSC.html#"+w_code+"' style='background: #ffffff;border-radius: 6px;border:1px solid #CCCCCC;box-shadow: 0px 0px 6px rgba(0, 0, 0, 0.3);border-radius:6px;'></iframe><span class='closeFrame sc-button' style='position:absolute;right:-35px;top:-5px;'>˟</span></div>");
+        $("body").append("<div style='display:none;position:absolute;z-index:1000;right:100px;top:10px;width:282px;height:47px;' id='"+fUtils.settings.selectors.remoteSCIframe.replace("#","")+"'><iframe width='280' height='45' frameBorder='0' src='http://klip.grm.im/git/SCoembedApi.git/addFromSC.html#"+w_code+"' style='background: #ffffff;border-radius: 6px;border:1px solid #CCCCCC;box-shadow: 0px 0px 6px rgba(0, 0, 0, 0.3);border-radius:6px;'></iframe><span class='closeFrame sc-button' style='border-radius: 50% 50% 50% 50%;"
+        +"display: block;"
+        +"font-size: 19px;"
+        +"height: 20px;"
+        +"line-height: 1.4;"
+        +"overflow: hidden;"
+        +"padding: 0;"
+        +"position: absolute;"
+        +"right: -10px;"
+        +"text-align: center;"
+        +"top: -8px;"
+        +"width: 20px;'>˟</span></div>");
         var _form = $(fUtils.settings.selectors.remoteSCIframe);
         _form.fadeIn(300);
         fUtils.closeTrackFromSC();
