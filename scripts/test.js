@@ -347,7 +347,7 @@ var fUtils = {
                     add_pl_menu.show(300);
                     sc_connect.hide();
                     fUtils.getPlayLists(); // Getting playlists and tracks from the local storage
-                    fUtils.getCurrentList(); // Getting currently selected playlist (Is set in fUtils.refreshList() && fUtils.addPlayList() methods)
+                    //fUtils.getCurrentList(); // Getting currently selected playlist (Is set in fUtils.refreshList() && fUtils.addPlayList() methods)
 
                     //Adding new playlist
                     add_pl_b.click(function () {
