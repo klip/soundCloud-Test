@@ -56,7 +56,17 @@ var fUtils = {
         fUtils.settings.playLists = (_playlistsV !== '') ? $.parseJSON(_playlistsV) : fUtils.settings.playLists;
         fUtils.refreshList();
     }, //END Getting playlists and tracks from the local storage
-
+    checkChange:function(){
+        var _playlistsV = $.parseJSON(localStorage.getItem('sc_playlists'));
+        if(_playlistsV[fUtils.settings.current].tracks.length > fUtils.settings.playLists[fUtils.settings.current].tracks.length){
+           for(var i=0; i<_playlistsV[fUtils.settings.current].tracks.length; i++){
+               if(typeof fUtils.settings.playLists[fUtils.settings.current].tracks[i] == 'undefined'){
+                   fUtils.pushTrack(_playlistsV[fUtils.settings.current].tracks[i], i);
+               }
+           }
+        }
+        fUtils.settings.playLists = _playlistsV;
+    },
     /* Getting currently selected playlist (Is set in fUtils.refreshList() && fUtils.addPlayList() methods) */
     getCurrentList:function(){
         var _playlistsC = localStorage.getItem('sc_current') || '';
@@ -355,7 +365,9 @@ var fUtils = {
                 });
             });
 
-
+            $(window).focus(function(){
+                alert('ddd');
+            });
         }/* END INIT PROJECT */
 };
 $(document).ready(function () {
