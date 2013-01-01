@@ -58,7 +58,7 @@ table {
 body {
     font-size: 14px;
     font-family: 'Georgia';
-    background: url("images/bgnoise_lg.jpg");
+    background: url("images/bgnoise_lg.jpg") #dfe7ea;
 }
 
 /* `Clear Floated Elements
