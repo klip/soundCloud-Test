@@ -207,13 +207,17 @@ var fUtils = {
 
         if(fUtils.settings.playLists[_playlist].tracks.length>0){
             var _height = tracks_list.height();
-            tracks_list.css('height',_height).html('').append(pl_empty).css('height', 'auto');
+            tracks_list.css('height',_height).html('').append(pl_empty);
             pl_empty.hide();
             for (var t in fUtils.settings.playLists[_playlist].tracks) {
                 if (fUtils.settings.playLists[_playlist].tracks.hasOwnProperty(t)) {
                     fUtils.pushTrack(fUtils.settings.playLists[_playlist].tracks[t], t);
                 }
             }
+            tracks_list.css('height', 'auto')
+        }else{
+            tracks_list.html('').append(pl_empty);
+            pl_empty.show();
         }
     },// END Refreshing tracklist in currently selected playlist
 
