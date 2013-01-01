@@ -115,6 +115,7 @@ var fUtils = {
             var plTitle = $(this).prev().text();
             fUtils.deleteList(plTitle);
         });
+        fUtils.getCurrentList();
     }, //Refresh playlists left menu according to fUtils.settings.playLists
 
     /* Store  fUtils.settings.playList to local Storage on every change */
