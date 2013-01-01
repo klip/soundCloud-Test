@@ -274,6 +274,7 @@ var fUtils = {
         //var _plEmpty = $(fUtils.settings.selectors.pl_empty);
 
         fUtils.settings.playLists[_pl].tracks.splice(removeT,1); // Remove track from local playlists obj
+        fUtils.setPlaylists();
         fUtils.refreshTracks(_pl);
     },// END Removing track from currently selected playlist
 
