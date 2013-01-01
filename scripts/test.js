@@ -213,6 +213,8 @@ var fUtils = {
                 }
             }
             tracks_list.css('height', 'auto');
+        }else{
+            tracks_list.html('');
         }
     },// END Refreshing tracklist in currently selected playlist
 
