@@ -1,6 +1,6 @@
 Test given by SoundCloud.com to Igor Raihlin
 
-URL: http://klip.grm.im/git/SCtest.git/soundCloud-Test/
+URL: http://klip.grm.im/git/SCtest.git/
 
 Dropbox url: https://www.dropbox.com/s/znbc5c835jnilxa/soundCloud-Test-master.zip
 
@@ -27,8 +27,8 @@ d.	Click + button
 2.	Removing playlist
 a.	Click “x” button on each playlist
 3.	Adding tracks
-a.	Copy tracks Widget code from “Share” dialog of one sound on SoundCloud.com
-b.	Paste it into “Widget Code” field
+a.	Copy the Url of one sound on SoundCloud.com
+b.	Paste it into “Track's URL” field
 c.	Click + button
 4.	Removing tracks
 a.	Click “-” button near each track

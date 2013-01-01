@@ -103,8 +103,9 @@ var fUtils = {
             _pl.addClass('hidden');
             add_chk_b.attr('checked', 'checked');
             $(this).addClass('selected').siblings().removeClass('selected');
-            fUtils.addTracks(plTitle.text());
             localStorage.setItem('sc_current',plTitle.text());
+            fUtils.getPlayLists();
+            fUtils.addTracks(plTitle.text());
         });
 
         $('dd', _all_lists).on('click', function (e) {
@@ -203,18 +204,16 @@ var fUtils = {
     refreshTracks:function(_playlist){
         var pl_empty = $(fUtils.settings.selectors.pl_empty);
         var tracks_list = $(fUtils.settings.selectors.tracks_list);
+
         if(fUtils.settings.playLists[_playlist].tracks.length>0){
             var _height = tracks_list.height();
-            tracks_list.html('').css('height',_height).html('').append(pl_empty);
+            tracks_list.css('height',_height).html('').append(pl_empty).css('height', 'auto');
             pl_empty.hide();
             for (var t in fUtils.settings.playLists[_playlist].tracks) {
                 if (fUtils.settings.playLists[_playlist].tracks.hasOwnProperty(t)) {
                     fUtils.pushTrack(fUtils.settings.playLists[_playlist].tracks[t], t);
                 }
             }
-            tracks_list.css('height', 'auto');
-        }else{
-            tracks_list.html('');
         }
     },// END Refreshing tracklist in currently selected playlist
 
