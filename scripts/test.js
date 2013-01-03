@@ -346,12 +346,11 @@ var fUtils = {
         var _undoObj =  (_sc_undo !== '' && _sc_undo !== null) ? $.parseJSON(_sc_undo) : '';
 
         if(typeof _undoObj === 'object'){
-            console.log(_undoObj);
             var _getState = _undoObj.pop();
             fUtils.settings.playLists = _getState.sc_playlists;
             fUtils.settings.sc_current = _getState.sc_current;
 
-            localStorage['sc_playlists'] = fUtils.settings.playLists;
+            localStorage['sc_playlists'] = JSON.stringify(fUtils.settings.playLists);
             localStorage['sc_current'] = fUtils.settings.sc_current;
 
             fUtils.refreshAll(); // Refreshing the stage
