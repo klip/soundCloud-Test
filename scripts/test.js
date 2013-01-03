@@ -154,6 +154,7 @@ var fUtils = {
 
         _pl.submit(function (e) {
             e.preventDefault();
+            fUtils.pushUndoState();
             var trackT = add_pl_title.val();
             var trackD = add_pl_descr.val();
 
@@ -172,7 +173,6 @@ var fUtils = {
             tracksHolder.html('<li id="pl_empty">No tracks</li>');
 
             fUtils.addTracks(trackT);
-            fUtils.pushUndoState();
         });
     },// End Creating new playlist
 
@@ -197,6 +197,7 @@ var fUtils = {
         fUtils.refreshTracks(_playlist);
         /* Prepare DOM for new track, adding new track to local playlists' obj and refreshing the tracks list in playlist  */
         add_tr_f.unbind('submit').submit(function (e) {
+            fUtils.pushUndoState();
             e.preventDefault();
             var t_field = $(fUtils.settings.selectors.add_tr_value, add_tr_f);
             var t_field_val = t_field.val();
@@ -208,7 +209,6 @@ var fUtils = {
             fUtils.refreshTracks(_playlist);
             t_field.val('');
             fUtils.setPlaylists();
-            fUtils.pushUndoState();
         });
     },// END Open add tracks to playlist dialog
 
@@ -280,20 +280,20 @@ var fUtils = {
 
     /* Removing track from currently selected playlist */
     removeTrack:function(_id){
+        fUtils.pushUndoState();
         var removeT = parseInt(_id);
         var _pl = $(fUtils.settings.selectors.pl_title).text();
 
         fUtils.settings.playLists[_pl].tracks.splice(removeT,1); // Remove track from local playlists obj
         fUtils.setPlaylists();
         fUtils.refreshTracks(_pl);
-        fUtils.pushUndoState();
     },// END Removing track from currently selected playlist
 
     /* Delete playlist  */
     deleteList: function (list) {
+        fUtils.pushUndoState();
         delete fUtils.settings.playLists[list];
         fUtils.setPlaylists();
-        fUtils.pushUndoState();
     },// END Delete playlist
 
     addTrackFromSC: function () {
