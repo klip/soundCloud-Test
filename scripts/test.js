@@ -345,7 +345,7 @@ var fUtils = {
         var _sc_undo = localStorage.getItem('sc_undo');
         var _undoObj =  (_sc_undo !== '' && _sc_undo !== null) ? $.parseJSON(_sc_undo) : '';
 
-        if(typeof _undoObj !== 'string'){
+        if(typeof _undoObj === 'object'){
             console.log(_undoObj);
             var _getState = _undoObj.pop();
             fUtils.settings.playLists = _getState.sc_playlists;
