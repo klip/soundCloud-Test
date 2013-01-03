@@ -172,6 +172,7 @@ var fUtils = {
             tracksHolder.html('<li id="pl_empty">No tracks</li>');
 
             fUtils.addTracks(trackT);
+            fUtils.pushUndoState();
         });
     },// End Creating new playlist
 
@@ -207,6 +208,7 @@ var fUtils = {
             fUtils.refreshTracks(_playlist);
             t_field.val('');
             fUtils.setPlaylists();
+            fUtils.pushUndoState();
         });
     },// END Open add tracks to playlist dialog
 
@@ -280,18 +282,18 @@ var fUtils = {
     removeTrack:function(_id){
         var removeT = parseInt(_id);
         var _pl = $(fUtils.settings.selectors.pl_title).text();
-        //var _trackCont = _id.closest('ul');
-        //var _plEmpty = $(fUtils.settings.selectors.pl_empty);
 
         fUtils.settings.playLists[_pl].tracks.splice(removeT,1); // Remove track from local playlists obj
         fUtils.setPlaylists();
         fUtils.refreshTracks(_pl);
+        fUtils.pushUndoState();
     },// END Removing track from currently selected playlist
 
     /* Delete playlist  */
     deleteList: function (list) {
         delete fUtils.settings.playLists[list];
         fUtils.setPlaylists();
+        fUtils.pushUndoState();
     },// END Delete playlist
 
     addTrackFromSC: function () {
@@ -329,6 +331,37 @@ var fUtils = {
             setTimeout(fUtils.closeTrackFromSC, 100);
         }
     },
+    pushUndoState: function(){
+        var _sc_undo = localStorage.getItem('sc_undo');
+        var _undoObj =  (_sc_undo !== '') ? $.parseJSON(_sc_undo) : [];
+        var _currentState = {
+            sc_playlists:fUtils.settings.playLists,
+            sc_current:fUtils.settings.current
+        };
+        _undoObj.push(_currentState);
+        localStorage['sc_undo'] = JSON.stringify(_undoObj);
+    },
+    pullUndoState: function(){
+        var _sc_undo = localStorage.getItem('sc_undo');
+        var _undoObj =  (_sc_undo !== '') ? $.parseJSON(_sc_undo) : '';
+
+        if(typeof _undoObj !== 'string'){
+            console.log(_undoObj);
+            var _getState = _undoObj.pop();
+            fUtils.settings.playLists = _getState.sc_playlists;
+            fUtils.settings.sc_current = _getState.sc_current;
+
+            localStorage['sc_playlists'] = fUtils.settings.playLists;
+            localStorage['sc_current'] = fUtils.settings.sc_current;
+
+            fUtils.refreshAll(); // Refreshing the stage
+
+        }
+    },
+    refreshAll: function(){
+        fUtils.getPlayLists(); // Getting playlists and tracks from the local storage
+        fUtils.getCurrentList(); // Getting currently selected playlist (Is set in fUtils.refreshList() && fUtils.addPlayList() methods)
+    },
     /* INIT PROJECT */
         init: function () {
             //Vars
@@ -351,12 +384,9 @@ var fUtils = {
                         $('h1').html(me.username+'\'s playground');
                     });
 
-                    //fUtils.setCookie('_scAuth', 1);
-
                     add_pl_menu.show(300);
                     sc_connect.hide();
-                    fUtils.getPlayLists(); // Getting playlists and tracks from the local storage
-                    fUtils.getCurrentList(); // Getting currently selected playlist (Is set in fUtils.refreshList() && fUtils.addPlayList() methods)
+                    fUtils.refreshAll(); // Refreshing the stage
 
                     //Adding new playlist
                     add_pl_b.click(function () {
