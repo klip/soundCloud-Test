@@ -1,3 +1,4 @@
+
 Test given by SoundCloud.com to Igor Raihlin
 
 URL: http://klip.grm.im/git/SCtest.git/
@@ -5,8 +6,11 @@ URL: http://klip.grm.im/git/SCtest.git/
 Dropbox url: https://www.dropbox.com/s/znbc5c835jnilxa/soundCloud-Test-master.zip
 
 
-
 Applications allows creating, removing custom playlists of SoundCloud tracks
+
+
+
+--- This branch is for developing undo functionality  ---
 
 
 * Application is fully functional in latest Mozilla Firefox, Google Chrome and Opera browsers
