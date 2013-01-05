@@ -45,7 +45,8 @@ var fUtils = {
             sc_dialog: 'div.dialog',
             sc_sh_cont: '#shareContent__widgetCodeField',
             sc_share_b: '.sc-button-share',
-            remoteSCIframe: '#sc_remote_add_to_pl'
+            remoteSCIframe: '#sc_remote_add_to_pl',
+            undo: '#undo'
         }, //END Sizzle selectors used in the app
         playLists: {}, //local variable for holding playlists object recieved from local storage
         current: '' //currently selected playlist
@@ -154,7 +155,7 @@ var fUtils = {
 
         _pl.submit(function (e) {
             e.preventDefault();
-            fUtils.pushUndoState();
+            fUtils.pushUndoState('adding new playlist');
             var trackT = add_pl_title.val();
             var trackD = add_pl_descr.val();
 
@@ -197,7 +198,7 @@ var fUtils = {
         fUtils.refreshTracks(_playlist);
         /* Prepare DOM for new track, adding new track to local playlists' obj and refreshing the tracks list in playlist  */
         add_tr_f.unbind('submit').submit(function (e) {
-            fUtils.pushUndoState();
+            fUtils.pushUndoState('adding new track');
             e.preventDefault();
             var t_field = $(fUtils.settings.selectors.add_tr_value, add_tr_f);
             var t_field_val = t_field.val();
@@ -280,7 +281,7 @@ var fUtils = {
 
     /* Removing track from currently selected playlist */
     removeTrack:function(_id){
-        fUtils.pushUndoState();
+        fUtils.pushUndoState('removing track');
         var removeT = parseInt(_id);
         var _pl = $(fUtils.settings.selectors.pl_title).text();
 
@@ -291,7 +292,7 @@ var fUtils = {
 
     /* Delete playlist  */
     deleteList: function (list) {
-        fUtils.pushUndoState();
+        fUtils.pushUndoState('deleting playlist');
         delete fUtils.settings.playLists[list];
         fUtils.setPlaylists();
     },// END Delete playlist
@@ -331,9 +332,19 @@ var fUtils = {
             setTimeout(fUtils.closeTrackFromSC, 100);
         }
     },
-    pushUndoState: function(){
+    pushUndoState: function(state){
+        var _undo = $(fUtils.settings.selectors.undo);
+        var sc_undoState = state||'';
+        var _undoTxt = $('span',fUtils.settings.selectors.undo);
+        if(sc_undoState!==''){
+            _undoTxt.html(sc_undoState);
+        }
+
         var _sc_undo = localStorage.getItem('sc_undo');
-        var _undoObj =  (_sc_undo !== '' && _sc_undo !== null) ? $.parseJSON(_sc_undo) : [];
+        var _undoObj = (_sc_undo !== '' && _sc_undo !== null) ? $.parseJSON(_sc_undo) : [];
+        if(_undoObj.length>0){
+            _undo.hide(300);
+        }
         var _currentState = {
             sc_playlists:fUtils.settings.playLists,
             sc_current:fUtils.settings.current
@@ -342,10 +353,11 @@ var fUtils = {
         localStorage['sc_undo'] = JSON.stringify(_undoObj);
     },
     pullUndoState: function(){
+        var _undo = $(fUtils.settings.selectors.undo);
         var _sc_undo = localStorage.getItem('sc_undo');
         var _undoObj =  (_sc_undo !== '' && _sc_undo !== null) ? $.parseJSON(_sc_undo) : '';
 
-        if(typeof _undoObj === 'object'){
+        if(typeof _undoObj === 'object' && _undoObj.length > 0){
             var _getState = _undoObj.pop();
             fUtils.settings.playLists = _getState.sc_playlists;
             fUtils.settings.sc_current = _getState.sc_current;
@@ -353,9 +365,25 @@ var fUtils = {
             localStorage['sc_playlists'] = JSON.stringify(fUtils.settings.playLists);
             localStorage['sc_current'] = fUtils.settings.sc_current;
 
+            if(_undoObj.length<1){
+                _undo.hide(300);
+            }
+
             fUtils.refreshAll(); // Refreshing the stage
 
         }
+    },
+    checkUndo:function(){
+        var _undo = $(fUtils.settings.selectors.undo);
+        var _sc_undo = localStorage.getItem('sc_undo');
+        var _undoObj =  (_sc_undo !== '' && _sc_undo !== null) ? $.parseJSON(_sc_undo) : '';
+        if(typeof _undoObj === 'object' && _undoObj.length > 0){
+            _undo.show(300);
+        }
+        _undo.on('click', function(e){
+            e.preventDefault();
+            fUtils.pullUndoState();
+        });
     },
     refreshAll: function(){
         fUtils.getPlayLists(); // Getting playlists and tracks from the local storage
@@ -367,6 +395,7 @@ var fUtils = {
             var sc_connect = $(fUtils.settings.selectors.sc_connect);
             var add_pl_b = $(fUtils.settings.selectors.add_pl_b);
             var add_pl_menu = $(fUtils.settings.selectors.add_pl_menu);
+
             SC.initialize({
                 client_id: 'fe5ad72e49de9b2b837438dc67909340',
                 redirect_uri: 'http://klip.grm.im/git/SCoembedApi.git/',
@@ -397,6 +426,9 @@ var fUtils = {
             $(window).focus(function(){
                 fUtils.checkChange();
             });
+
+            fUtils.checkUndo();
+
         }/* END INIT PROJECT */
 };
 $(document).ready(function () {
