@@ -420,6 +420,8 @@ var fUtils = {
                     add_pl_b.click(function () {
                         fUtils.addPlayList();
                     });
+
+                    fUtils.checkUndo();
                 });
             });
 
@@ -427,7 +429,6 @@ var fUtils = {
                 fUtils.checkChange();
             });
 
-            fUtils.checkUndo();
 
         }/* END INIT PROJECT */
 };
