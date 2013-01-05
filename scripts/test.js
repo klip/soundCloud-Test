@@ -342,8 +342,8 @@ var fUtils = {
 
         var _sc_undo = localStorage.getItem('sc_undo');
         var _undoObj = (_sc_undo !== '' && _sc_undo !== null) ? $.parseJSON(_sc_undo) : [];
-        if(_undoObj.length>0){
-            _undo.hide(300);
+        if(_undoObj.length && _undoObj.length==1){
+            _undo.show(300);
         }
         var _currentState = {
             sc_playlists:fUtils.settings.playLists,
