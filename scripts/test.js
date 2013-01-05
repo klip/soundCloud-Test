@@ -364,7 +364,7 @@ var fUtils = {
 
             localStorage['sc_playlists'] = JSON.stringify(fUtils.settings.playLists);
             localStorage['sc_current'] = fUtils.settings.sc_current;
-
+            localStorage['sc_undo'] = JSON.stringify(_undoObj);
             if(_undoObj.length<1){
                 _undo.hide(300);
             }
