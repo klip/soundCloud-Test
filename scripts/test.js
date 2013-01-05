@@ -342,14 +342,14 @@ var fUtils = {
 
         var _sc_undo = localStorage.getItem('sc_undo');
         var _undoObj = (_sc_undo !== '' && _sc_undo !== null) ? $.parseJSON(_sc_undo) : [];
-        if(_undoObj.length && _undoObj.length==1){
-            _undo.show(300);
-        }
         var _currentState = {
             sc_playlists:fUtils.settings.playLists,
             sc_current:fUtils.settings.current
         };
         _undoObj.push(_currentState);
+        if(_undoObj.length && _undoObj.length==1){
+            _undo.show(300);
+        }
         localStorage['sc_undo'] = JSON.stringify(_undoObj);
     },
     pullUndoState: function(){
