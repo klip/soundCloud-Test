@@ -156,7 +156,7 @@ var fUtils = {
         add_chk_b.removeAttr('checked');
         _pl.removeClass('hidden');
 
-        _pl.submit(function (e) {
+        _pl.unbind('submit').submit(function (e) {
             e.preventDefault();
             fUtils.pushUndoState('adding new playlist');
             var plT = add_pl_title.val();
