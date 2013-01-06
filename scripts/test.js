@@ -364,10 +364,7 @@ var fUtils = {
         var _undoObj = (_sc_undo !== '' && _sc_undo !== null) ? $.parseJSON(_sc_undo) : '';
 
         if(typeof _undoObj === 'object' && _undoObj.length > 0){
-            console.log('1',_undoObj);
             var _getState = _undoObj.pop();
-            console.log('2',_getState);
-            console.log('3',_undoObj);
             fUtils.settings.playLists = _getState.sc_playlists;
             fUtils.settings.current = _getState.sc_current;
 
