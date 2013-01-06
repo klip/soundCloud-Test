@@ -133,6 +133,7 @@ var fUtils = {
         var json_data = JSON.stringify(fUtils.settings.playLists);
         if (Modernizr.localstorage) {
             localStorage.setItem('sc_playlists', json_data);
+            localStorage.setItem('sc_current', fUtils.settings.current);
         } else {
             alert("No local Storage - don't wanna work");
         }
@@ -156,24 +157,24 @@ var fUtils = {
         _pl.submit(function (e) {
             e.preventDefault();
             fUtils.pushUndoState('adding new playlist');
-            var trackT = add_pl_title.val();
-            var trackD = add_pl_descr.val();
+            var plT = add_pl_title.val();
+            var plD = add_pl_descr.val();
 
             if(trackT===''){
                 add_pl_title.addClass('error').val('Title is required').focus(function(){$(this).removeClass('error').val('')});
                 return;
             };
 
-            fUtils.settings.playLists[trackT] = {title: trackT, description: trackD, tracks: []};
-            fUtils.settings.current = trackT;
-            localStorage.setItem('sc_current',trackT);
+            fUtils.settings.playLists[plT] = {title: plT, description: plD, tracks: []};
+            fUtils.settings.current = plT;
+            localStorage.setItem('sc_current',plT);
             fUtils.setPlaylists('new');
 
             $(this).addClass('hidden');
             add_chk_b.attr('checked', 'checked');
             tracksHolder.html('<li id="pl_empty">No tracks</li>');
 
-            fUtils.addTracks(trackT);
+            fUtils.addTracks(plT);
         });
     },// End Creating new playlist
 
@@ -294,6 +295,7 @@ var fUtils = {
     deleteList: function (list) {
         fUtils.pushUndoState('deleting playlist');
         delete fUtils.settings.playLists[list];
+        fUtils.settings.current = '';
         fUtils.setPlaylists();
     },// END Delete playlist
 
@@ -342,14 +344,13 @@ var fUtils = {
 
         var _sc_undo = localStorage.getItem('sc_undo');
         var _undoObj = (_sc_undo !== '' && _sc_undo !== null) ? $.parseJSON(_sc_undo) : [];
-        if($.isEmptyObject(fUtils.settings.playLists)!==true&&fUtils.settings.current!==''){
-            var _currentState = {
-                sc_playlists:fUtils.settings.playLists,
-                sc_current:fUtils.settings.current
-            };
-            _undoObj.push(_currentState);
-            localStorage['sc_undo'] = JSON.stringify(_undoObj);
-        }
+        var _currentState = {
+            sc_playlists:fUtils.settings.playLists,
+            sc_current:fUtils.settings.current
+        };
+        _undoObj.push(_currentState);
+
+        localStorage['sc_undo'] = JSON.stringify(_undoObj);
 
         if(_undoObj.length && _undoObj.length==1){
             _undo.show(300);
@@ -361,12 +362,24 @@ var fUtils = {
         var _undoObj =  (_sc_undo !== '' && _sc_undo !== null) ? $.parseJSON(_sc_undo) : '';
 
         if(typeof _undoObj === 'object' && _undoObj.length > 0){
+            console.log('1'+_undoObj);
             var _getState = _undoObj.pop();
-            fUtils.settings.playLists = _getState.sc_playlists;
-            fUtils.settings.sc_current = _getState.sc_current;
+            console.log('2'+_getState);
+            console.log('3'+_undoObj);
+            fUtils.settings.playList = _getState.sc_playlists;
+            fUtils.settings.current = _getState.sc_current;
 
-            localStorage['sc_playlists'] = JSON.stringify(fUtils.settings.playLists);
-            localStorage['sc_current'] = fUtils.settings.sc_current;
+            if($.isEmptyObject(fUtils.settings.playLists)==true){
+                localStorage.removeItem('sc_playlists')
+            }else{
+                localStorage['sc_playlists'] = JSON.stringify(fUtils.settings.playLists);
+            }
+            if(fUtils.settings.current == ''){
+                localStorage.removeItem('sc_current')
+            }else{
+                localStorage['sc_current'] = fUtils.settings.current;
+            }
+
             localStorage['sc_undo'] = JSON.stringify(_undoObj);
             if(_undoObj.length<1){
                 _undo.hide(300);
