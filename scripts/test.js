@@ -301,6 +301,7 @@ var fUtils = {
         fUtils.setPlaylists();
     },// END Delete playlist
 
+    /* For bookmarklet functionality - Creating iframe loaded on the SoundCloud.com, list existing playlist and adding track to one of them */
     addTrackFromSC: function () {
         var w_code = window.location.href;
         $("body").append("<div style='display:none;position:absolute;z-index:1000;right:100px;top:10px;width:282px;height:47px;' id='"+fUtils.settings.selectors.remoteSCIframe.replace("#","")+"'><iframe width='280' height='49' frameBorder='0' src='http://klip.grm.im/git/SCoembedApi.git/addFromSC.html#"+w_code+"' style='background: #ffffff;border-radius: 6px;border:1px solid #CCCCCC;box-shadow: 0px 0px 6px rgba(0, 0, 0, 0.3);border-radius:6px;'></iframe><span class='closeFrame sc-button' style='border-radius: 50% 50% 50% 50%;"
@@ -318,7 +319,9 @@ var fUtils = {
         var _form = $(fUtils.settings.selectors.remoteSCIframe);
         _form.fadeIn(300);
         fUtils.closeTrackFromSC();
-    },
+    },/* END Creating iframe loaded on the SoundCloud.com */
+
+    /* Closing iframe on SoundCloud.com by reading #close_child (set in addFromSC.js) */
     closeTrackFromSC: function () {
         var _iframe = $(fUtils.settings.selectors.remoteSCIframe);
         $('.closeFrame', _iframe).on('click',function(){
@@ -335,7 +338,9 @@ var fUtils = {
         else {
             setTimeout(fUtils.closeTrackFromSC, 100);
         }
-    },
+    },/* END Closing iframe on SoundCloud.com */
+
+    /* Setting to localStorage undo state on each action (Adding new playlist, track, deleting playlist) */
     pushUndoState: function(state){
         var _undo = $(fUtils.settings.selectors.undo);
         var sc_undoState = state||'';
@@ -358,7 +363,9 @@ var fUtils = {
         if(_undoObj.length && _undoObj.length==1){
             _undo.show(300);
         }
-    },
+    },/* END Setting to localStorage undo state */
+
+    /* Reading last undo state from localStorage and refreshing playground */
     pullUndoState: function(){
         var _undo = $(fUtils.settings.selectors.undo);
         var _undoTxt = $('span',fUtils.settings.selectors.undo);
@@ -393,8 +400,10 @@ var fUtils = {
             fUtils.refreshAll(); // Refreshing the stage
 
         }
-    },
-    checkUndo:function(){
+    },/* END Reading last undo state from localStorage and refreshing playground */
+
+
+    checkUndo:function(){ //Checking if undo state exists on first load
         var _undo = $(fUtils.settings.selectors.undo);
         var _undoTxt = $('span',fUtils.settings.selectors.undo);
         var _sc_undo = localStorage.getItem('sc_undo');
@@ -411,7 +420,7 @@ var fUtils = {
             fUtils.pullUndoState();
         });
     },
-    refreshAll: function(){
+    refreshAll: function(){ //Refreshing playground
         fUtils.getPlayLists(); // Getting playlists and tracks from the local storage
         fUtils.getCurrentList(); // Getting currently selected playlist (Is set in fUtils.refreshList() && fUtils.addPlayList() methods)
     },
