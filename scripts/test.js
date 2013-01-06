@@ -104,7 +104,9 @@ var fUtils = {
         }else{
             var _playlistsC = localStorage.getItem('sc_current') || '';
             if (_playlistsC !== '') {
-                $('li[data-list="'+_playlistsC+'"]',fUtils.settings.selectors.all_lists).addClass('selected');
+                $('li[data-list="'+_playlistsC+'"]',fUtils.settings.selectors.all_lists).addClass('selected').click();
+            }else{
+                playlist.hide(300);
             }
         }
 
