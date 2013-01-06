@@ -348,7 +348,8 @@ var fUtils = {
         var _undoObj = (_sc_undo !== '' && _sc_undo !== null) ? $.parseJSON(_sc_undo) : [];
         var _currentState = {
             sc_playlists:fUtils.settings.playLists,
-            sc_current:fUtils.settings.current
+            sc_current:fUtils.settings.current,
+            sc_undoState: 'state'
         };
         _undoObj.push(_currentState);
 
@@ -360,11 +361,16 @@ var fUtils = {
     },
     pullUndoState: function(){
         var _undo = $(fUtils.settings.selectors.undo);
+        var _undoTxt = $('span',fUtils.settings.selectors.undo);
         var _sc_undo = localStorage.getItem('sc_undo');
         var _undoObj = (_sc_undo !== '' && _sc_undo !== null) ? $.parseJSON(_sc_undo) : '';
 
         if(typeof _undoObj === 'object' && _undoObj.length > 0){
             var _getState = _undoObj.pop();
+            var sc_undoState = _getState.sc_undoState||'';
+            if(sc_undoState!==''){
+                _undoTxt.html(sc_undoState);
+            }
             fUtils.settings.playLists = _getState.sc_playlists;
             fUtils.settings.current = _getState.sc_current;
 
@@ -390,9 +396,14 @@ var fUtils = {
     },
     checkUndo:function(){
         var _undo = $(fUtils.settings.selectors.undo);
+        var _undoTxt = $('span',fUtils.settings.selectors.undo);
         var _sc_undo = localStorage.getItem('sc_undo');
         var _undoObj =  (_sc_undo !== '' && _sc_undo !== null) ? $.parseJSON(_sc_undo) : '';
         if(typeof _undoObj === 'object' && _undoObj.length > 0){
+            var sc_undoState = _undoObj[_undoObj.length-1].sc_undoState||'';
+            if(sc_undoState!==''){
+                _undoTxt.html(sc_undoState);
+            }
             _undo.show(300);
         }
         _undo.on('click', function(e){
