@@ -359,23 +359,23 @@ var fUtils = {
     pullUndoState: function(){
         var _undo = $(fUtils.settings.selectors.undo);
         var _sc_undo = localStorage.getItem('sc_undo');
-        var _undoObj =  (_sc_undo !== '' && _sc_undo !== null) ? $.parseJSON(_sc_undo) : '';
+        var _undoObj = (_sc_undo !== '' && _sc_undo !== null) ? $.parseJSON(_sc_undo) : '';
 
         if(typeof _undoObj === 'object' && _undoObj.length > 0){
-            console.log('1'+_undoObj);
+            console.log('1',_undoObj);
             var _getState = _undoObj.pop();
-            console.log('2'+_getState);
-            console.log('3'+_undoObj);
-            fUtils.settings.playList = _getState.sc_playlists;
+            console.log('2',_getState);
+            console.log('3',_undoObj);
+            fUtils.settings.playLists = _getState.sc_playlists;
             fUtils.settings.current = _getState.sc_current;
 
             if($.isEmptyObject(fUtils.settings.playLists)==true){
-                localStorage.removeItem('sc_playlists')
+                localStorage.removeItem('sc_playlists');
             }else{
                 localStorage['sc_playlists'] = JSON.stringify(fUtils.settings.playLists);
             }
             if(fUtils.settings.current == ''){
-                localStorage.removeItem('sc_current')
+                localStorage.removeItem('sc_current');
             }else{
                 localStorage['sc_current'] = fUtils.settings.current;
             }
