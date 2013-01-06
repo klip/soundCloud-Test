@@ -349,7 +349,7 @@ var fUtils = {
         var _currentState = {
             sc_playlists:fUtils.settings.playLists,
             sc_current:fUtils.settings.current,
-            sc_undoState: 'state'
+            sc_undoState: state
         };
         _undoObj.push(_currentState);
 
