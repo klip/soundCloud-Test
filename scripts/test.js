@@ -160,7 +160,7 @@ var fUtils = {
             var plT = add_pl_title.val();
             var plD = add_pl_descr.val();
 
-            if(trackT===''){
+            if(plT===''){
                 add_pl_title.addClass('error').val('Title is required').focus(function(){$(this).removeClass('error').val('')});
                 return;
             };
