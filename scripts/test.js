@@ -115,6 +115,7 @@ var fUtils = {
             add_chk_b.attr('checked', 'checked');
             $(this).addClass('selected').siblings().removeClass('selected');
             localStorage.setItem('sc_current',plTitle.text());
+            fUtils.settings.current=plTitle.text();
             fUtils.getPlayLists();
             fUtils.addTracks(plTitle.text());
         });
@@ -342,7 +343,7 @@ var fUtils = {
 
         var _sc_undo = localStorage.getItem('sc_undo');
         var _undoObj = (_sc_undo !== '' && _sc_undo !== null) ? $.parseJSON(_sc_undo) : [];
-        if(!$.isEmptyObject(fUtils.settings.playLists)&&fUtils.settings.current!=''){
+        if($.isEmptyObject(fUtils.settings.playLists)!==true&&fUtils.settings.current!==''){
             var _currentState = {
                 sc_playlists:fUtils.settings.playLists,
                 sc_current:fUtils.settings.current
