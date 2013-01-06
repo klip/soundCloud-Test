@@ -342,15 +342,18 @@ var fUtils = {
 
         var _sc_undo = localStorage.getItem('sc_undo');
         var _undoObj = (_sc_undo !== '' && _sc_undo !== null) ? $.parseJSON(_sc_undo) : [];
-        var _currentState = {
-            sc_playlists:fUtils.settings.playLists,
-            sc_current:fUtils.settings.current
-        };
-        _undoObj.push(_currentState);
+        if(!$.isEmptyObject(fUtils.settings.playLists)&&fUtils.settings.current!=''){
+            var _currentState = {
+                sc_playlists:fUtils.settings.playLists,
+                sc_current:fUtils.settings.current
+            };
+            _undoObj.push(_currentState);
+            localStorage['sc_undo'] = JSON.stringify(_undoObj);
+        }
+
         if(_undoObj.length && _undoObj.length==1){
             _undo.show(300);
         }
-        localStorage['sc_undo'] = JSON.stringify(_undoObj);
     },
     pullUndoState: function(){
         var _undo = $(fUtils.settings.selectors.undo);
