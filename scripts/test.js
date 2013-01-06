@@ -115,7 +115,6 @@ var fUtils = {
             add_chk_b.attr('checked', 'checked');
             $(this).addClass('selected').siblings().removeClass('selected');
             localStorage.setItem('sc_current',plTitle.text());
-            fUtils.settings.current=plTitle.text();
             fUtils.getPlayLists();
             fUtils.addTracks(plTitle.text());
         });
@@ -166,7 +165,7 @@ var fUtils = {
             };
 
             fUtils.settings.playLists[trackT] = {title: trackT, description: trackD, tracks: []};
-
+            fUtils.settings.current = trackT;
             localStorage.setItem('sc_current',trackT);
             fUtils.setPlaylists('new');
 
